@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         XVolley.getInstance()
+                .goGson(String.class)
                 .doGet()
                 .url("http://www.sojson.com/open/api/weather/json.shtml")
                 .addParams("city", "北京")

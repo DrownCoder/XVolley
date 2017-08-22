@@ -2,7 +2,8 @@ package com.study.xuan.xvolleyutil.build;
 
 import android.net.Uri;
 
-import com.study.xuan.xvolleyutil.Factory.GetRequestFactory;
+import com.study.xuan.xvolleyutil.factory.GetRequestFactory;
+import com.study.xuan.xvolleyutil.factory.RequestFactory;
 import com.study.xuan.xvolleyutil.utils.LogUtil;
 
 import java.util.Iterator;
@@ -17,8 +18,9 @@ import java.util.Set;
  */
 
 public class GetBuilder extends RequestBuilder<GetBuilder> implements ContainParams {
-    public GetBuilder(int mMethodType) {
-        this.type = mMethodType;
+
+    public GetBuilder(int mMethodType, Class c) {
+        super(mMethodType, c);
     }
 
     @Override
@@ -55,11 +57,11 @@ public class GetBuilder extends RequestBuilder<GetBuilder> implements ContainPar
         return builder.build().toString();
     }
     @Override
-    public GetRequestFactory build() {
+    public RequestFactory build() {
         if (params != null) {
             url = appendParams(url, params);
         }
         LogUtil.log("url", url);
-        return new GetRequestFactory(url,params,type);
+        return new GetRequestFactory(url, params, type, mClass);
     }
 }

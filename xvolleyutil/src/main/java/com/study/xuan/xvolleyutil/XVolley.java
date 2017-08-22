@@ -22,6 +22,7 @@ public final class XVolley {
     private static volatile XVolley instance = null;
     private RequestQueue mRequsetQueue;
     private String mBaseUrl;
+    private Class mClassz = String.class;
     private boolean isGson = false;
     private int mMethodType;
 
@@ -67,13 +68,17 @@ public final class XVolley {
         if (isGson) {
             mMethodType = METHOD_GET_GSON;
         }
-        return new GetBuilder(mMethodType);
+        return new GetBuilder(mMethodType,mClassz);
     }
 
     /**
      * do post request
      */
     public XVolley doPost() {
+        mMethodType = METHOD_POST_STRING;
+        if (isGson) {
+
+        }
         return this;
     }
 
@@ -88,7 +93,8 @@ public final class XVolley {
     /**
      * go to parse by Gson
      */
-    public XVolley goGson() {
+    public XVolley goGson(Class c) {
+        mClassz = c;
         isGson = true;
         return this;
     }

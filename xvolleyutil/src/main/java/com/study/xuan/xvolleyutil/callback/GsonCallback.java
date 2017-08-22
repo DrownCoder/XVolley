@@ -4,12 +4,11 @@ import com.android.volley.VolleyError;
 
 /**
  * Author : xuan.
- * Data : 2017/8/15.
+ * Data : 2017/8/22.
  * Description :input the description of this file.
  */
 
-public abstract class CallBack<T> implements ICallBack<T> {
-
+public class GsonCallback<T> implements ICallBack<T> {
     @Override
     public void onBefore() {
 
@@ -19,8 +18,6 @@ public abstract class CallBack<T> implements ICallBack<T> {
     public void onSuccess(T response) {
 
     }
-
-    public abstract void onSuccess(String response);
 
     @Override
     public void onError(VolleyError error) {

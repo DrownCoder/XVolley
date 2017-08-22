@@ -1,6 +1,7 @@
 package com.study.xuan.xvolleyutil.build;
 
-import com.study.xuan.xvolleyutil.Factory.GetRequestFactory;
+import com.study.xuan.xvolleyutil.factory.GetRequestFactory;
+import com.study.xuan.xvolleyutil.factory.RequestFactory;
 
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import java.util.Map;
  */
 
 public abstract class RequestBuilder<T extends RequestBuilder> {
+    protected Class mClass;
     protected  int type;
     protected String url;
     protected Map<String,String> params;
@@ -19,6 +21,10 @@ public abstract class RequestBuilder<T extends RequestBuilder> {
         this.url = url;
         return (T) this;
     }
+    public RequestBuilder(int mMethodType,Class c) {
+        this.type = mMethodType;
+        this.mClass = c;
+    }
 
-    public abstract GetRequestFactory build();
+    public abstract RequestFactory build();
 }

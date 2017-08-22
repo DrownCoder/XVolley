@@ -31,7 +31,7 @@ public class GsonRequest<T> extends Request<T> {
         mListener = listener;
     }
     @Override
-    protected Response<T> parseNetworkResponse(NetworkResponse response) {
+    protected Response parseNetworkResponse(NetworkResponse response) {
         try {
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers));

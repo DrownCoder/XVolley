@@ -10,14 +10,13 @@ import com.android.volley.Response;
  * Description :input the description of this file.
  */
 
-public class OnSuccessListener<T> extends WeakListener implements Response.Listener<T> {
+public abstract class OnSuccessListener extends WeakListener implements Response.Listener<String> {
 
-    public OnSuccessListener(Context activity, CallBack<T> callBack) {
+    public OnSuccessListener(Context activity, ICallBack callBack) {
         super(activity, callBack);
     }
 
     @Override
-    public void onResponse(T response) {
-        callBack.onSuccess(response);
-    }
+    public abstract void onResponse(String response);
+
 }

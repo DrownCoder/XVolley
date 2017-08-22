@@ -13,8 +13,8 @@ import java.lang.ref.WeakReference;
 
 public abstract class WeakListener{
     final WeakReference<Activity> activityWeakReference;
-    final CallBack callBack;
-    public WeakListener(Context activity, CallBack callBack) {
+    final ICallBack callBack;
+    public WeakListener(Context activity, ICallBack callBack) {
         activityWeakReference = new WeakReference<Activity>((Activity) activity);
         this.callBack = callBack;
     }

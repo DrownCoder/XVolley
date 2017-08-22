@@ -1,6 +1,9 @@
 package com.study.xuan.xvolleyutil.build;
 
-import com.study.xuan.xvolleyutil.Factory.GetRequestFactory;
+import com.study.xuan.xvolleyutil.factory.GetRequestFactory;
+import com.study.xuan.xvolleyutil.factory.PostRequestFactory;
+import com.study.xuan.xvolleyutil.factory.RequestFactory;
+import com.study.xuan.xvolleyutil.utils.LogUtil;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,6 +15,10 @@ import java.util.Map;
  */
 
 public class PostBuilder extends RequestBuilder implements ContainParams {
+    public PostBuilder(int mMethodType, Class c) {
+        super(mMethodType, c);
+    }
+
     @Override
     public RequestBuilder params(Map<String, String> params) {
         this.params = params;
@@ -29,7 +36,8 @@ public class PostBuilder extends RequestBuilder implements ContainParams {
     }
 
     @Override
-    public GetRequestFactory build() {
-        return null;
+    public RequestFactory build() {
+        LogUtil.log("url", url);
+        return new PostRequestFactory(url, params, type, mClass);
     }
 }

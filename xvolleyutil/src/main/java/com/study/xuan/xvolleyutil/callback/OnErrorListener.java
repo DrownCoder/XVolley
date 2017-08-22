@@ -11,9 +11,9 @@ import com.android.volley.VolleyError;
  * Description :input the description of this file.
  */
 
-public class OnErrorListener<T> extends WeakListener implements Response.ErrorListener {
+public class OnErrorListener extends WeakListener implements Response.ErrorListener {
 
-    public OnErrorListener(Context activity, CallBack<T> callBack) {
+    public OnErrorListener(Context activity, ICallBack callBack) {
         super(activity, callBack);
     }
 
