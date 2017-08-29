@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Author : xuan.
  * Data : 2017/8/15.
- * Description :input the description of this file.
+ * Description :base factory
  */
 
 public abstract class RequestFactory{
