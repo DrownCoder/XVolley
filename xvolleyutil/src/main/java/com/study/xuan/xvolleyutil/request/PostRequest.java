@@ -11,13 +11,13 @@ import java.util.Map;
 /**
  * Author : xuan.
  * Data : 2017/8/18.
- * Description :input the description of this file.
+ * Description :the post contains params
  */
 
-public class StringPostRequest extends StringRequest {
+public class PostRequest extends StringRequest {
     private Map<String,String> mParams;
-    public StringPostRequest(String url, Map<String,String> params, Response.Listener<String> listener,
-                             Response.ErrorListener errorListener) {
+    public PostRequest(String url, Map<String,String> params, Response.Listener<String> listener,
+                       Response.ErrorListener errorListener) {
         super(Method.POST, url, listener, errorListener);
         this.mParams = params;
     }

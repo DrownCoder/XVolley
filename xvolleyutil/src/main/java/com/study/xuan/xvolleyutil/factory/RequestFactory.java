@@ -4,6 +4,7 @@ package com.study.xuan.xvolleyutil.factory;
 import android.content.Context;
 
 import com.android.volley.Request;
+import com.google.gson.Gson;
 import com.study.xuan.xvolleyutil.XVolley;
 import com.study.xuan.xvolleyutil.callback.ICallBack;
 
@@ -36,4 +37,15 @@ public abstract class RequestFactory{
 
     abstract Request createRequest(Context context, ICallBack callBack,int type);
 
+    /**
+     * transform the respone by GSON
+     * @param response the String respone
+     */
+    protected Object transformResponse(String response) {
+        if (!mClass.getClass().equals(String.class)) {
+            Gson gson = new Gson();
+            return gson.fromJson(response, mClass);
+        }
+        return response;
+    }
 }

@@ -19,9 +19,7 @@ public abstract class CallBack<T> implements ICallBack<T> {
     public void onSuccess(T response) {
 
     }
-
-    public abstract void onSuccess(String response);
-
+    
     @Override
     public void onError(VolleyError error) {
 

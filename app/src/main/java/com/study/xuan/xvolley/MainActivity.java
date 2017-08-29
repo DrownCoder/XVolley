@@ -14,15 +14,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         XVolley.getInstance()
-                .goGson(String.class)
+                .goGson(weather.class)
                 .doGet()
                 .url("http://www.sojson.com/open/api/weather/json.shtml")
                 .addParams("city", "北京")
                 .build()
-                .execute(this, new CallBack<String>() {
+                .execute(this, new CallBack<weather>() {
                     @Override
-                    public void onSuccess(String response) {
-                        Log.e("Success", response);
+                    public void onSuccess(weather response) {
+                        Log.e("Success", response.getCity());
                     }
                 });
     }

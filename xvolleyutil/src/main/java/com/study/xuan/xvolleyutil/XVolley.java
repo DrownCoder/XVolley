@@ -6,6 +6,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.study.xuan.xvolleyutil.build.GetBuilder;
+import com.study.xuan.xvolleyutil.build.PostFormBuilder;
+import com.study.xuan.xvolleyutil.build.PostStringBuilder;
+import com.study.xuan.xvolleyutil.build.RequestBuilder;
 import com.study.xuan.xvolleyutil.utils.Exceptions;
 
 /**
@@ -19,6 +22,8 @@ public final class XVolley {
     public static final int METHOD_GET_GSON = 1;
     public static final int METHOD_POST_STRING = 2;
     public static final int METHOD_POST_GSON = 3;
+    public static final int METHOD_STRING_POST = 4;
+    public static final int METHOD_STRING_POST_GSON = 5;
     private static volatile XVolley instance = null;
     private RequestQueue mRequsetQueue;
     private String mBaseUrl;
@@ -63,7 +68,7 @@ public final class XVolley {
     /**
      * do get request
      */
-    public GetBuilder doGet() {
+    public RequestBuilder doGet() {
         mMethodType = METHOD_GET_STRING;
         if (isGson) {
             mMethodType = METHOD_GET_GSON;
@@ -74,12 +79,23 @@ public final class XVolley {
     /**
      * do post request
      */
-    public XVolley doPost() {
+    public RequestBuilder doPost() {
         mMethodType = METHOD_POST_STRING;
         if (isGson) {
-
+            mMethodType = METHOD_POST_GSON;
         }
-        return this;
+        return new PostFormBuilder(mMethodType,mClassz);
+    }
+
+    /**
+     * post with string body
+     */
+    public RequestBuilder doPostString() {
+        mMethodType = METHOD_STRING_POST;
+        if (isGson) {
+            mMethodType = METHOD_STRING_POST_GSON;
+        }
+        return new PostStringBuilder(mMethodType, mClassz);
     }
 
     /**

@@ -1,6 +1,5 @@
 package com.study.xuan.xvolleyutil.build;
 
-import com.study.xuan.xvolleyutil.factory.GetRequestFactory;
 import com.study.xuan.xvolleyutil.factory.PostRequestFactory;
 import com.study.xuan.xvolleyutil.factory.RequestFactory;
 import com.study.xuan.xvolleyutil.utils.LogUtil;
@@ -11,11 +10,11 @@ import java.util.Map;
 /**
  * Author : xuan.
  * Data : 2017/8/18.
- * Description :input the description of this file.
+ * Description :build the form post
  */
 
-public class PostBuilder extends RequestBuilder implements ContainParams {
-    public PostBuilder(int mMethodType, Class c) {
+public class PostFormBuilder extends RequestBuilder implements ContainParams {
+    public PostFormBuilder(int mMethodType, Class c) {
         super(mMethodType, c);
     }
 

@@ -35,6 +35,15 @@ public class GetRequestFactory extends RequestFactory {
                     }
                 }, new OnErrorListener(context, callBack));
                 break;
+            case XVolley.METHOD_GET_GSON:
+                request = new StringRequest(url
+                        , new OnSuccessListener(context, callBack) {
+                    @Override
+                    public void onResponse(String response) {
+                        callBack.onSuccess(transformResponse(response));
+                    }
+                }, new OnErrorListener(context, callBack));
+                break;
         }
         return request;
     }
