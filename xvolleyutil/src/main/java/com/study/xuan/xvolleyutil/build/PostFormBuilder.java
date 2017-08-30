@@ -13,7 +13,7 @@ import java.util.Map;
  * Description :build the form post
  */
 
-public class PostFormBuilder extends RequestBuilder implements ContainParams {
+public class PostFormBuilder extends RequestBuilder<PostFormBuilder> implements ContainParams {
     public PostFormBuilder(int mMethodType, Class c) {
         super(mMethodType, c);
     }

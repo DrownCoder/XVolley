@@ -9,7 +9,7 @@ import com.study.xuan.xvolleyutil.factory.RequestFactory;
  * Description :the post request with json string body
  */
 
-public class PostStringBuilder extends RequestBuilder {
+public class PostStringBuilder extends RequestBuilder<PostStringBuilder> {
     private String content;
     public PostStringBuilder(int mMethodType, Class c) {
         super(mMethodType, c);
