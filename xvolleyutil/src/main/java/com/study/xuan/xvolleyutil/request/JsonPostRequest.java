@@ -39,13 +39,4 @@ public class JsonPostRequest extends StringRequest {
             return null;
         }
     }
-    @Override
-    protected Response<String> parseNetworkResponse(NetworkResponse response) {
-        String responseString = "";
-        if (response != null) {
-            responseString = String.valueOf(response.statusCode);
-            // can get more details such as response.headers
-        }
-        return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-    }
 }

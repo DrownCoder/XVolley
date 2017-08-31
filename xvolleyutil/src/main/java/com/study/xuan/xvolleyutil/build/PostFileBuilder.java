@@ -20,7 +20,7 @@ import java.util.Map;
  * Description :input the description of this file.
  */
 
-public class PostFileBuilder extends RequestBuilder implements ContainParams {
+public class PostFileBuilder extends RequestBuilder<PostFileBuilder> implements ContainParams {
     private final String twoHyphens = "--";
     private final String lineEnd = "\r\n";
     private final String boundary = "apiclient-" + System.currentTimeMillis();
@@ -70,7 +70,7 @@ public class PostFileBuilder extends RequestBuilder implements ContainParams {
     private void buildPart(DataOutputStream dataOutputStream, byte[] fileData, String fileName)
             throws IOException {
         dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
-        dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\"; " +
+        dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"pic\"; " +
                 "filename=\""
                 + fileName + "\"" + lineEnd);
         dataOutputStream.writeBytes(lineEnd);
