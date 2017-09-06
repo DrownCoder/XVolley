@@ -3,7 +3,7 @@ package com.study.xuan.xvolleyutil.factory;
 import android.content.Context;
 
 import com.android.volley.Request;
-import com.study.xuan.xvolleyutil.XVolley;
+import com.study.xuan.xvolleyutil.build.RequestBuilder;
 import com.study.xuan.xvolleyutil.callback.ICallBack;
 import com.study.xuan.xvolleyutil.callback.OnErrorListener;
 import com.study.xuan.xvolleyutil.callback.OnSuccessListener;
@@ -12,6 +12,7 @@ import com.study.xuan.xvolleyutil.request.MultipartRequest;
 import com.study.xuan.xvolleyutil.request.PostRequest;
 
 import java.util.Map;
+
 
 /**
  * Author : xuan.
@@ -53,7 +54,7 @@ public class PostRequestFactory extends RequestFactory {
     Request createRequest(Context context, final ICallBack callBack, int type) {
         Request request = null;
         switch (type) {
-            case XVolley.METHOD_POST_STRING:
+            case RequestBuilder.METHOD_POST_STRING:
                 request = new PostRequest(url, params
                         , new OnSuccessListener(context, callBack) {
                     @Override
@@ -63,7 +64,7 @@ public class PostRequestFactory extends RequestFactory {
                 }
                         , new OnErrorListener(context, callBack));
                 break;
-            case XVolley.METHOD_POST_GSON:
+            case RequestBuilder.METHOD_POST_GSON:
                 request = new PostRequest(url, params
                         , new OnSuccessListener(context, callBack) {
                     @Override
@@ -72,7 +73,7 @@ public class PostRequestFactory extends RequestFactory {
                     }
                 }, new OnErrorListener(context, callBack));
                 break;
-            case XVolley.METHOD_STRING_POST:
+            case RequestBuilder.METHOD_STRING_POST:
                 request = new JsonPostRequest(Request.Method.POST, url
                         , new OnSuccessListener(context, callBack) {
                     @Override
@@ -81,7 +82,7 @@ public class PostRequestFactory extends RequestFactory {
                     }
                 }, new OnErrorListener(context, callBack), content);
                 break;
-            case XVolley.METHOD_STRING_POST_GSON:
+            case RequestBuilder.METHOD_STRING_POST_GSON:
                 request = new JsonPostRequest(Request.Method.POST, url
                         , new OnSuccessListener(context, callBack) {
                     @Override
@@ -90,7 +91,7 @@ public class PostRequestFactory extends RequestFactory {
                     }
                 }, new OnErrorListener(context, callBack), content);
                 break;
-            case XVolley.METHOD_POST_FILE:
+            case RequestBuilder.METHOD_POST_FILE:
                 request = new MultipartRequest(url, params,null, mimeType, multipartBody, new
                         OnSuccessListener(context, callBack) {
                             @Override
@@ -99,7 +100,7 @@ public class PostRequestFactory extends RequestFactory {
                             }
                         }, new OnErrorListener(context, callBack));
                 break;
-            case XVolley.METHOD_POST_FILE_GOSN:
+            case RequestBuilder.METHOD_POST_FILE_GOSN:
                 request = new MultipartRequest(url, params,null, mimeType, multipartBody, new
                         OnSuccessListener(context, callBack) {
                             @Override

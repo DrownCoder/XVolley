@@ -29,8 +29,8 @@ public class PostFileBuilder extends RequestBuilder<PostFileBuilder> implements 
     ByteArrayOutputStream bos;
     DataOutputStream dos;
 
-    public PostFileBuilder(int mMethodType, Class c) {
-        super(mMethodType, c);
+    public PostFileBuilder() {
+        super();
         bos = new ByteArrayOutputStream();
         dos = new DataOutputStream(bos);
     }
@@ -47,6 +47,11 @@ public class PostFileBuilder extends RequestBuilder<PostFileBuilder> implements 
         }
 
         return new PostRequestFactory(url, params, type, mClass, multipartBody, mimeType);
+    }
+
+    @Override
+    protected int setRequestType() {
+        return METHOD_POST_FILE;
     }
 
     public PostFileBuilder addFile(String fileName, File file) {

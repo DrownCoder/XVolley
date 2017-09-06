@@ -31,18 +31,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //get请求
-        /*XVolley.getInstance()
-                .goGson(weather.class)
+        XVolley.getInstance()
                 .doGet()
                 .url("http://www.sojson.com/open/api/weather/json.shtml")
                 .addParams("city", "北京")
+                .goGson(weather.class)
                 .build()
                 .execute(this, new CallBack<weather>() {
                     @Override
                     public void onSuccess(weather response) {
                         Log.e("Success", response.getCity());
                     }
-                });*/
+                });
         //post请求带参数
         /*XVolley.getInstance()
                 .doPost()

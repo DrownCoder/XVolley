@@ -19,20 +19,9 @@ import com.study.xuan.xvolleyutil.utils.Exceptions;
  */
 
 public final class XVolley {
-    public static final int METHOD_GET_STRING = 0;
-    public static final int METHOD_GET_GSON = 1;
-    public static final int METHOD_POST_STRING = 2;
-    public static final int METHOD_POST_GSON = 3;
-    public static final int METHOD_STRING_POST = 4;
-    public static final int METHOD_STRING_POST_GSON = 5;
-    public static final int METHOD_POST_FILE = 6;
-    public static final int METHOD_POST_FILE_GOSN = 7;
     private static volatile XVolley instance = null;
     private RequestQueue mRequsetQueue;
     private String mBaseUrl;
-    private Class mClassz = String.class;
-    private boolean isGson = false;
-    private int mMethodType;
 
     private XVolley(Context context) {
         if (context == null) {
@@ -72,44 +61,28 @@ public final class XVolley {
      * do get request
      */
     public GetBuilder doGet() {
-        mMethodType = METHOD_GET_STRING;
-        if (isGson) {
-            mMethodType = METHOD_GET_GSON;
-        }
-        return new GetBuilder(mMethodType,mClassz);
+        return new GetBuilder();
     }
 
     /**
      * do post request
      */
     public PostFormBuilder doPost() {
-        mMethodType = METHOD_POST_STRING;
-        if (isGson) {
-            mMethodType = METHOD_POST_GSON;
-        }
-        return new PostFormBuilder(mMethodType,mClassz);
+        return new PostFormBuilder();
     }
 
     /**
      * post with string body
      */
     public PostStringBuilder doPostString() {
-        mMethodType = METHOD_STRING_POST;
-        if (isGson) {
-            mMethodType = METHOD_STRING_POST_GSON;
-        }
-        return new PostStringBuilder(mMethodType, mClassz);
+        return new PostStringBuilder();
     }
 
     /**
      * post file
      */
     public PostFileBuilder doPostFile() {
-        mMethodType = METHOD_POST_FILE;
-        if (isGson) {
-            mMethodType = METHOD_POST_FILE_GOSN;
-        }
-        return new PostFileBuilder(mMethodType, mClassz);
+        return new PostFileBuilder();
     }
 
     /**
@@ -120,12 +93,4 @@ public final class XVolley {
         return this;
     }
 
-    /**
-     * go to parse by Gson
-     */
-    public XVolley goGson(Class c) {
-        mClassz = c;
-        isGson = true;
-        return this;
-    }
 }

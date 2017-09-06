@@ -11,8 +11,8 @@ import com.study.xuan.xvolleyutil.factory.RequestFactory;
 
 public class PostStringBuilder extends RequestBuilder<PostStringBuilder> {
     private String content;
-    public PostStringBuilder(int mMethodType, Class c) {
-        super(mMethodType, c);
+    public PostStringBuilder() {
+        super();
     }
 
     public RequestBuilder content(String content) {
@@ -23,5 +23,10 @@ public class PostStringBuilder extends RequestBuilder<PostStringBuilder> {
     @Override
     public RequestFactory build() {
         return new PostRequestFactory(url,params,type,mClass,content);
+    }
+
+    @Override
+    protected int setRequestType() {
+        return METHOD_STRING_POST;
     }
 }

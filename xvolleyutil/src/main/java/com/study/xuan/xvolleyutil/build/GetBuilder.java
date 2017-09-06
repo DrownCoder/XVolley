@@ -19,8 +19,8 @@ import java.util.Set;
 
 public class GetBuilder extends RequestBuilder<GetBuilder> implements ContainParams {
 
-    public GetBuilder(int mMethodType, Class c) {
-        super(mMethodType, c);
+    public GetBuilder() {
+        super();
     }
 
     @Override
@@ -63,5 +63,10 @@ public class GetBuilder extends RequestBuilder<GetBuilder> implements ContainPar
         }
         LogUtil.log("url", url);
         return new GetRequestFactory(url, params, type, mClass);
+    }
+
+    @Override
+    protected int setRequestType() {
+        return METHOD_GET_STRING;
     }
 }

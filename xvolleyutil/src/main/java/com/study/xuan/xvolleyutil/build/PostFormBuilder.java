@@ -14,8 +14,8 @@ import java.util.Map;
  */
 
 public class PostFormBuilder extends RequestBuilder<PostFormBuilder> implements ContainParams {
-    public PostFormBuilder(int mMethodType, Class c) {
-        super(mMethodType, c);
+    public PostFormBuilder() {
+        super();
     }
 
     @Override
@@ -38,5 +38,10 @@ public class PostFormBuilder extends RequestBuilder<PostFormBuilder> implements 
     public RequestFactory build() {
         LogUtil.log("url", url);
         return new PostRequestFactory(url, params, type, mClass);
+    }
+
+    @Override
+    protected int setRequestType() {
+        return METHOD_POST_STRING;
     }
 }
