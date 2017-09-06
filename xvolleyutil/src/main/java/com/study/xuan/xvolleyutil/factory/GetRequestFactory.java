@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
-import com.study.xuan.xvolleyutil.XVolley;
+import com.study.xuan.xvolleyutil.build.RequestBuilder;
 import com.study.xuan.xvolleyutil.callback.ICallBack;
 import com.study.xuan.xvolleyutil.callback.OnErrorListener;
 import com.study.xuan.xvolleyutil.callback.OnSuccessListener;
@@ -26,7 +26,7 @@ public class GetRequestFactory extends RequestFactory {
     Request createRequest(Context context, final ICallBack callBack, int type) {
         Request request = null;
         switch (type) {
-            case XVolley.METHOD_GET_STRING:
+            case RequestBuilder.METHOD_GET_STRING:
                 request = new StringRequest(url
                         , new OnSuccessListener(context, callBack) {
                     @Override
@@ -35,7 +35,7 @@ public class GetRequestFactory extends RequestFactory {
                     }
                 }, new OnErrorListener(context, callBack));
                 break;
-            case XVolley.METHOD_GET_GSON:
+            case RequestBuilder.METHOD_GET_GSON:
                 request = new StringRequest(url
                         , new OnSuccessListener(context, callBack) {
                     @Override
