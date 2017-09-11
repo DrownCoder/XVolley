@@ -4,14 +4,14 @@ import android.graphics.Bitmap;
 
 import com.study.xuan.xvolleyutil.factory.PostRequestFactory;
 import com.study.xuan.xvolleyutil.factory.RequestFactory;
-import com.study.xuan.xvolleyutil.utils.ByteUtils;
+import com.study.xuan.xvolleyutil.model.FormFile;
+import com.study.xuan.xvolleyutil.utils.LogUtil;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,84 +21,254 @@ import java.util.Map;
  */
 
 public class PostFileBuilder extends RequestBuilder<PostFileBuilder> implements ContainParams {
-    private final String twoHyphens = "--";
-    private final String lineEnd = "\r\n";
-    private final String boundary = "apiclient-" + System.currentTimeMillis();
-    private final String mimeType = "multipart/form-data;boundary=" + boundary;
+    private String IMAGE_TYPE = "image/png";
+    private String FILE_TYPE = "\"multipart/form-data";
     private byte[] multipartBody;
-    ByteArrayOutputStream bos;
-    DataOutputStream dos;
+    // 数据分隔线
+    private String BOUNDARY = "----XVolleyUploadFile";
+    private final String mimeType = "multipart/form-data;boundary=" + BOUNDARY;
 
+    List<FormFile> mFiles;
     public PostFileBuilder() {
         super();
-        bos = new ByteArrayOutputStream();
-        dos = new DataOutputStream(bos);
+        mFiles = new ArrayList<>();
     }
 
     @Override
     public RequestFactory build() {
-        // send multipart form data necesssary after file data
-        try {
-            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-            // pass to multipart body
-            multipartBody = bos.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        multipartBody = buildPart();
         return new PostRequestFactory(url, params, type, mClass, multipartBody, mimeType);
     }
 
     @Override
-    protected int setRequestType() {
+    protected int requestType() {
         return METHOD_POST_FILE;
     }
 
-    public PostFileBuilder addFile(String fileName, File file) {
-        try {
-            buildPart(dos, ByteUtils.File2byte(file.getAbsolutePath()), fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public PostFileBuilder addFile(String name ,String fileName, String path) {
+        FormFile file = new FormFile(name, fileName, path, FILE_TYPE);
+        mFiles.add(file);
+        return this;
+    }
+
+    public PostFileBuilder addFiles(String name, String fileName, List<String> paths) {
+        for (String item : paths) {
+            FormFile file = new FormFile(name, fileName, item, FILE_TYPE);
+            mFiles.add(file);
         }
         return this;
     }
 
-    public PostFileBuilder addBitmap(String fileName, Bitmap bitmap) {
-        try {
-            buildPart(dos, ByteUtils.Bitmap2Byte(bitmap), fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public PostFileBuilder addFormFiles(List<FormFile> datas) {
+        if (datas != null && datas.size() > 0) {
+            mFiles.addAll(datas);
+        }else{
+            LogUtil.error("uploadfiles","uploads the empty files");
         }
         return this;
     }
 
-    private void buildPart(DataOutputStream dataOutputStream, byte[] fileData, String fileName)
+    private byte[] buildPart() {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        StringBuffer sb = new StringBuffer();
+        if (mFiles.size() == 0) {
+            return null;
+        }
+        for (FormFile file : mFiles) {
+            /* 第一行 */
+            // `"--" + BOUNDARY + "\r\n"`
+            sb.append("--" + BOUNDARY + "\r\n");
+
+            /* 第二行 */
+            // Content-Disposition: form-data; name="参数的名称"; filename="上传的文件名" +
+            // "\r\n"
+            sb.append("Content-Disposition: form-data;");
+            sb.append(" name=\"");
+            sb.append(file.getName());
+            sb.append("\"");
+            sb.append("; filename=\"");
+            sb.append(file.getFileName());
+            sb.append("\"");
+            sb.append("\r\n");
+
+            /* 第三行 */
+            // Content-Type: 文件的 mime 类型 + "\r\n"
+            sb.append("Content-Type: ");
+            sb.append(file.getMime());
+            sb.append("\r\n");
+
+            /* 第四行 */
+            // "\r\n" 空白的一行
+            sb.append("\r\n");
+
+            try {
+                bos.write(sb.toString().getBytes("utf-8"));
+                /* 第五行 */
+                // 文件的二进制数据 + "\r\n"
+                bos.write(file.getValue());
+                bos.write("\r\n".getBytes("utf-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            sb.setLength(0);
+        }
+        /* 结尾行 */
+        // `"--" + BOUNDARY + "--" + "\r\n"`
+        String endLine = "--" + BOUNDARY + "--" + "\r\n";
+        try {
+            bos.write(endLine.getBytes("utf-8"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bos.toByteArray();
+    }
+
+    /*private byte[] buildPart(FormFile mImage)
             throws IOException {
-        dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
-        dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"pic\"; " +
-                "filename=\""
-                + fileName + "\"" + lineEnd);
-        dataOutputStream.writeBytes(lineEnd);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
-        ByteArrayInputStream fileInputStream = new ByteArrayInputStream(fileData);
-        int bytesAvailable = fileInputStream.available();
+        StringBuffer sb = new StringBuffer();
 
-        int maxBufferSize = 1024 * 1024;
-        int bufferSize = Math.min(bytesAvailable, maxBufferSize);
-        byte[] buffer = new byte[bufferSize];
+        if (content == null) {
+            *//**
+             * 图片
+             *//*
+            *//* 第一行 *//*
+            // `"--" + BOUNDARY + "\r\n"`
+            sb.append("--" + BOUNDARY + "\r\n");
 
-        // read file and write it into form...
-        int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+            *//* 第二行 *//*
+            // Content-Disposition: form-data; name="参数的名称"; filename="上传的文件名" +
+            // "\r\n"
+            sb.append("Content-Disposition: form-data;");
+            sb.append(" name=\"");
+            sb.append(mImage.getName());
+            sb.append("\"");
+            sb.append("; filename=\"");
+            sb.append(mImage.getFileName());
+            sb.append("\"");
+            sb.append("\r\n");
 
-        while (bytesRead > 0) {
-            dataOutputStream.write(buffer, 0, bufferSize);
-            bytesAvailable = fileInputStream.available();
-            bufferSize = Math.min(bytesAvailable, maxBufferSize);
-            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+            *//* 第三行 *//*
+            // Content-Type: 文件的 mime 类型 + "\r\n"
+            sb.append("Content-Type: ");
+            sb.append(mImage.getMime());
+            sb.append("\r\n");
+
+            *//* 第四行 *//*
+            // "\r\n" 空白的一行
+            sb.append("\r\n");
+
+            try {
+                bos.write(sb.toString().getBytes("utf-8"));
+                *//* 第五行 *//*
+                // 文件的二进制数据 + "\r\n"
+                bos.write(mImage.getValue());
+                bos.write("\r\n".getBytes("utf-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            *//* 结尾行 *//*
+            // `"--" + BOUNDARY + "--" + "\r\n"`
+            String endLine = "--" + BOUNDARY + "--" + "\r\n";
+            try {
+                bos.write(endLine.getBytes("utf-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            LogUtil.log("upLoad", "=====formImage====\n" + bos.toString());
+            return bos.toByteArray();
+        }
+        *//*
+         * 文字
+         *//*
+        *//* 第一行 *//*
+        // `"--" + BOUNDARY + "\r\n"`
+        sb.append("--" + BOUNDARY + "\r\n");
+
+        *//* 第二行 *//*
+        // Content-Disposition: form-data; name="text" + "\r\n"
+        sb.append("Content-Disposition: form-data;");
+        sb.append(" name=\"");
+        sb.append("text");
+        sb.append("\"");
+        sb.append("\r\n");
+
+        *//* 第三行 *//*
+        // "\r\n" 空白的一行
+        sb.append("\r\n");
+
+        *//* 第四行 *//*
+        // 文本内容
+        sb.append(content);
+        sb.append("\r\n");
+
+        if (mImage == null) {
+            *//* 结尾行 *//*
+            // `"--" + BOUNDARY + "--" + "\r\n"`
+            String endLine = "--" + BOUNDARY + "--" + "\r\n";
+            try {
+                bos.write(sb.toString().getBytes("utf-8"));
+                bos.write(endLine.getBytes("utf-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            LogUtil.log("upLoad", "=====formImage====\n" + bos.toString());
+            return bos.toByteArray();
+        } else {
+            *//*
+             * 图片
+             *//*
+            *//* 第一行 *//*
+            // `"--" + BOUNDARY + "\r\n"`
+            sb.append("--" + BOUNDARY + "\r\n");
+
+            *//* 第二行 *//*
+            // Content-Disposition: form-data; name="参数的名称"; filename="上传的文件名" +
+            // "\r\n"
+            sb.append("Content-Disposition: form-data;");
+            sb.append(" name=\"");
+            sb.append(mImage.getName());
+            sb.append("\"");
+            sb.append("; filename=\"");
+            sb.append(mImage.getFileName());
+            sb.append("\"");
+            sb.append("\r\n");
+
+            *//* 第三行 *//*
+            // Content-Type: 文件的 mime 类型 + "\r\n"
+            sb.append("Content-Type: ");
+            sb.append(mImage.getMime());
+            sb.append("\r\n");
+
+            *//* 第四行 *//*
+            // "\r\n" 空白的一行
+            sb.append("\r\n");
+
+            try {
+                bos.write(sb.toString().getBytes("utf-8"));
+                *//* 第五行 *//*
+                // 文件的二进制数据 + "\r\n"
+                bos.write(mImage.getValue());
+                bos.write("\r\n".getBytes("utf-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
 
-        dataOutputStream.writeBytes(lineEnd);
-    }
+        *//* 结尾行 *//*
+        // `"--" + BOUNDARY + "--" + "\r\n"`
+        String endLine = "--" + BOUNDARY + "--" + "\r\n";
+        try {
+            bos.write(endLine.getBytes("utf-8"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bos.toByteArray();
+    }*/
 
     @Override
     public RequestBuilder params(Map<String, String> params) {

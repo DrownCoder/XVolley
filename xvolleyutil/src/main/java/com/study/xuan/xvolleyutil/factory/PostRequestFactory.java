@@ -8,7 +8,7 @@ import com.study.xuan.xvolleyutil.callback.ICallBack;
 import com.study.xuan.xvolleyutil.callback.OnErrorListener;
 import com.study.xuan.xvolleyutil.callback.OnSuccessListener;
 import com.study.xuan.xvolleyutil.request.JsonPostRequest;
-import com.study.xuan.xvolleyutil.request.MultipartRequest;
+import com.study.xuan.xvolleyutil.request.MultiPartRequest;
 import com.study.xuan.xvolleyutil.request.PostRequest;
 
 import java.util.Map;
@@ -92,7 +92,7 @@ public class PostRequestFactory extends RequestFactory {
                 }, new OnErrorListener(context, callBack), content);
                 break;
             case RequestBuilder.METHOD_POST_FILE:
-                request = new MultipartRequest(url, params,null, mimeType, multipartBody, new
+                request = new MultiPartRequest(url, params, mimeType, multipartBody, new
                         OnSuccessListener(context, callBack) {
                             @Override
                             public void onResponse(String response) {
@@ -101,7 +101,7 @@ public class PostRequestFactory extends RequestFactory {
                         }, new OnErrorListener(context, callBack));
                 break;
             case RequestBuilder.METHOD_POST_FILE_GOSN:
-                request = new MultipartRequest(url, params,null, mimeType, multipartBody, new
+                request = new MultiPartRequest(url, params, mimeType, multipartBody, new
                         OnSuccessListener(context, callBack) {
                             @Override
                             public void onResponse(String response) {

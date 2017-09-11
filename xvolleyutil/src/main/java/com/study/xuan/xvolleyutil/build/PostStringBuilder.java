@@ -26,7 +26,7 @@ public class PostStringBuilder extends RequestBuilder<PostStringBuilder> {
     }
 
     @Override
-    protected int setRequestType() {
+    protected int requestType() {
         return METHOD_STRING_POST;
     }
 }

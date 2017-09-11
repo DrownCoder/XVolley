@@ -41,7 +41,7 @@ public class PostFormBuilder extends RequestBuilder<PostFormBuilder> implements 
     }
 
     @Override
-    protected int setRequestType() {
+    protected int requestType() {
         return METHOD_POST_STRING;
     }
 }

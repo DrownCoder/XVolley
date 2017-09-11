@@ -54,9 +54,10 @@ public abstract class RequestBuilder<T extends RequestBuilder> {
     }
 
     public RequestBuilder() {
+        type = requestType();
     }
 
     public abstract RequestFactory build();
 
-    protected abstract int setRequestType();
+    protected abstract int requestType();
 }

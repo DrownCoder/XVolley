@@ -14,4 +14,8 @@ public class LogUtil {
     public static void log(String type, String log) {
         Log.i(BASE_LOG + type, log);
     }
+
+    public static void error(String type, String log) {
+        Log.e(BASE_LOG + type, log);
+    }
 }

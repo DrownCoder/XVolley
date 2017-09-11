@@ -9,7 +9,6 @@ import com.study.xuan.xvolleyutil.build.GetBuilder;
 import com.study.xuan.xvolleyutil.build.PostFileBuilder;
 import com.study.xuan.xvolleyutil.build.PostFormBuilder;
 import com.study.xuan.xvolleyutil.build.PostStringBuilder;
-import com.study.xuan.xvolleyutil.build.RequestBuilder;
 import com.study.xuan.xvolleyutil.utils.Exceptions;
 
 /**
@@ -81,7 +80,7 @@ public final class XVolley {
     /**
      * post file
      */
-    public PostFileBuilder doPostFile() {
+    public PostFileBuilder doPostFile(){
         return new PostFileBuilder();
     }
 

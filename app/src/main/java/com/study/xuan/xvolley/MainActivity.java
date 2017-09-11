@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.study.xuan.xvolleyutil.XVolley;
 import com.study.xuan.xvolleyutil.callback.CallBack;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //get请求
-        XVolley.getInstance()
+        /*XVolley.getInstance()
                 .doGet()
                 .url("http://www.sojson.com/open/api/weather/json.shtml")
                 .addParams("city", "北京")
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onSuccess(weather response) {
                         Log.e("Success", response.getCity());
                     }
-                });
+                });*/
         //post请求带参数
         /*XVolley.getInstance()
                 .doPost()
@@ -109,18 +111,28 @@ public class MainActivity extends AppCompatActivity {
                 });*/
         Resources res = getResources();
 
-        Bitmap bmp = BitmapFactory.decodeResource(res, R.drawable.lion);
-        XVolley.getInstance()
-                .doPostFile()
-                .url("http://192.168.117.102/filepost.php")
-                .addFile("pic",compressImage(bmp))
-                .build()
-                .execute(this, new CallBack<String>() {
-                    @Override
-                    public void onSuccess(String response) {
-                        super.onSuccess(response);
-                    }
-                });
+        final Bitmap bmp = BitmapFactory.decodeResource(res, R.drawable.lion);
+        TextView tvPostFile = (TextView) findViewById(R.id.tv_post_file);
+        tvPostFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                XVolley.getInstance()
+                        .doPostFile()
+                        .url("http://192.168.117.102/xfilepost.php")
+                        .addFile("pic", "bb.txt", Environment.getExternalStorageDirectory() + "/bb" +
+                                ".txt")
+                        .addFile("pic", "bb.txt", Environment.getExternalStorageDirectory() + "/bb" +
+                                ".txt")
+                        .build()
+                        .execute(MainActivity.this, new CallBack<String>() {
+                            @Override
+                            public void onSuccess(String response) {
+                                super.onSuccess(response);
+                            }
+                        });
+            }
+        });
+
 
         /*OkHttpUtils.post()//
                 .addFile("pic", "pic", compressImage(bmp))

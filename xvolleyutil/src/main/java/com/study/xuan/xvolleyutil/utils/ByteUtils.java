@@ -21,23 +21,22 @@ public class ByteUtils {
         try
         {
             File file = new File(filePath);
-            FileInputStream fis = new FileInputStream(file);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] b = new byte[1024];
-            int n;
-            while ((n = fis.read(b)) != -1)
-            {
-                bos.write(b, 0, n);
+            if (file.exists()) {
+                FileInputStream fis = new FileInputStream(file);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] b = new byte[1024];
+                int n;
+                while ((n = fis.read(b)) != -1) {
+                    bos.write(b, 0, n);
+                }
+                fis.close();
+                bos.close();
+                buffer = bos.toByteArray();
+            } else {
+                LogUtil.error("uploadfile", "the file is not exists");
+                return new byte[0];
             }
-            fis.close();
-            bos.close();
-            buffer = bos.toByteArray();
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace();
         }

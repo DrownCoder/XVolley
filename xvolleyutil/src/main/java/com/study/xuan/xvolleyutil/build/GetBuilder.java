@@ -66,7 +66,7 @@ public class GetBuilder extends RequestBuilder<GetBuilder> implements ContainPar
     }
 
     @Override
-    protected int setRequestType() {
+    protected int requestType() {
         return METHOD_GET_STRING;
     }
 }
