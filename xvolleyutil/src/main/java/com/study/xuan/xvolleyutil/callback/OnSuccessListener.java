@@ -17,6 +17,13 @@ public abstract class OnSuccessListener extends WeakListener implements Response
     }
 
     @Override
-    public abstract void onResponse(String response);
+    public void onResponse(String response) {
+        if (activityWeakReference.get() == null) {
+            callBack.onFinish();
+        } else {
+            onSuccess(activityWeakReference.get(), response);
+        }
+    }
 
+    public abstract void onSuccess(Context wContext, String response);
 }

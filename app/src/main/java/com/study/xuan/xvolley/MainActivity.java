@@ -1,5 +1,6 @@
 package com.study.xuan.xvolley;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.study.xuan.xvolleyutil.XVolley;
 import com.study.xuan.xvolleyutil.callback.CallBack;
+import com.study.xuan.xvolleyutil.utils.LogUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -109,25 +111,23 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("OKSuccess", response);
                     }
                 });*/
-        Resources res = getResources();
-
-        final Bitmap bmp = BitmapFactory.decodeResource(res, R.drawable.lion);
         TextView tvPostFile = (TextView) findViewById(R.id.tv_post_file);
+
         tvPostFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 XVolley.getInstance()
                         .doPostFile()
-                        .url("http://192.168.117.102/xfilepost.php")
-                        .addFile("pic", "bb.txt", Environment.getExternalStorageDirectory() + "/bb" +
+                        .url("http://192.168.117.102/filex.php")
+                        .addFile("txt", "bb.txt", Environment.getExternalStorageDirectory() + "/bb" +
                                 ".txt")
-                        .addFile("pic", "bb.txt", Environment.getExternalStorageDirectory() + "/bb" +
-                                ".txt")
+                        .addFile("png", "aa.txt", Environment.getExternalStorageDirectory() + "/aa" +
+                                ".png")
                         .build()
                         .execute(MainActivity.this, new CallBack<String>() {
                             @Override
-                            public void onSuccess(String response) {
-                                super.onSuccess(response);
+                            public void onSuccess(Context context, String response) {
+                                super.onSuccess(context, response);
                             }
                         });
             }

@@ -1,8 +1,5 @@
 package com.study.xuan.xvolleyutil.model;
 
-import java.io.ByteArrayOutputStream;
-import android.graphics.Bitmap;
-
 import com.study.xuan.xvolleyutil.utils.ByteUtils;
 
 /**

@@ -58,8 +58,8 @@ public class PostRequestFactory extends RequestFactory {
                 request = new PostRequest(url, params
                         , new OnSuccessListener(context, callBack) {
                     @Override
-                    public void onResponse(String response) {
-                        callBack.onSuccess(response);
+                    public void onSuccess(Context wContext, String response) {
+                        callBack.onSuccess(wContext, response);
                     }
                 }
                         , new OnErrorListener(context, callBack));
@@ -68,8 +68,8 @@ public class PostRequestFactory extends RequestFactory {
                 request = new PostRequest(url, params
                         , new OnSuccessListener(context, callBack) {
                     @Override
-                    public void onResponse(String response) {
-                        callBack.onSuccess(transformResponse(response));
+                    public void onSuccess(Context wContext, String response) {
+                        callBack.onSuccess(wContext, transformResponse(response));
                     }
                 }, new OnErrorListener(context, callBack));
                 break;
@@ -77,8 +77,8 @@ public class PostRequestFactory extends RequestFactory {
                 request = new JsonPostRequest(Request.Method.POST, url
                         , new OnSuccessListener(context, callBack) {
                     @Override
-                    public void onResponse(String response) {
-                        callBack.onSuccess(response);
+                    public void onSuccess(Context wContext, String response) {
+                        callBack.onSuccess(wContext, response);
                     }
                 }, new OnErrorListener(context, callBack), content);
                 break;
@@ -86,8 +86,8 @@ public class PostRequestFactory extends RequestFactory {
                 request = new JsonPostRequest(Request.Method.POST, url
                         , new OnSuccessListener(context, callBack) {
                     @Override
-                    public void onResponse(String response) {
-                        callBack.onSuccess(transformResponse(response));
+                    public void onSuccess(Context wContext, String response) {
+                        callBack.onSuccess(wContext, transformResponse(response));
                     }
                 }, new OnErrorListener(context, callBack), content);
                 break;
@@ -95,8 +95,8 @@ public class PostRequestFactory extends RequestFactory {
                 request = new MultiPartRequest(url, params, mimeType, multipartBody, new
                         OnSuccessListener(context, callBack) {
                             @Override
-                            public void onResponse(String response) {
-                                callBack.onSuccess(response);
+                            public void onSuccess(Context wContext, String response) {
+                                callBack.onSuccess(wContext, response);
                             }
                         }, new OnErrorListener(context, callBack));
                 break;
@@ -104,8 +104,8 @@ public class PostRequestFactory extends RequestFactory {
                 request = new MultiPartRequest(url, params, mimeType, multipartBody, new
                         OnSuccessListener(context, callBack) {
                             @Override
-                            public void onResponse(String response) {
-                                callBack.onSuccess(transformResponse(response));
+                            public void onSuccess(Context wContext, String response) {
+                                callBack.onSuccess(wContext, transformResponse(response));
                             }
                         }, new OnErrorListener(context, callBack));
                 break;

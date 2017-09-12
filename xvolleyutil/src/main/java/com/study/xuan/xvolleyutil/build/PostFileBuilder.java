@@ -51,14 +51,6 @@ public class PostFileBuilder extends RequestBuilder<PostFileBuilder> implements 
         return this;
     }
 
-    public PostFileBuilder addFiles(String name, String fileName, List<String> paths) {
-        for (String item : paths) {
-            FormFile file = new FormFile(name, fileName, item, FILE_TYPE);
-            mFiles.add(file);
-        }
-        return this;
-    }
-
     public PostFileBuilder addFormFiles(List<FormFile> datas) {
         if (datas != null && datas.size() > 0) {
             mFiles.addAll(datas);

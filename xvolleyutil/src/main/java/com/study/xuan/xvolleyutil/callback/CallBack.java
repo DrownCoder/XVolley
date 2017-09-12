@@ -1,5 +1,7 @@
 package com.study.xuan.xvolleyutil.callback;
 
+import android.content.Context;
+
 import com.android.volley.VolleyError;
 
 /**
@@ -16,7 +18,7 @@ public abstract class CallBack<T> implements ICallBack<T> {
     }
 
     @Override
-    public void onSuccess(T response) {
+    public void onSuccess(Context context, T response) {
 
     }
     
@@ -27,6 +29,11 @@ public abstract class CallBack<T> implements ICallBack<T> {
 
     @Override
     public void onAfter() {
+
+    }
+
+    @Override
+    public void onFinish() {
 
     }
 }

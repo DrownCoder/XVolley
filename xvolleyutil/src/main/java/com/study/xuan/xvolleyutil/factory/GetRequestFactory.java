@@ -30,8 +30,8 @@ public class GetRequestFactory extends RequestFactory {
                 request = new StringRequest(url
                         , new OnSuccessListener(context, callBack) {
                     @Override
-                    public void onResponse(String response) {
-                        callBack.onSuccess(response);
+                    public void onSuccess(Context wContext, String response) {
+                        callBack.onSuccess(wContext, response);
                     }
                 }, new OnErrorListener(context, callBack));
                 break;
@@ -39,8 +39,8 @@ public class GetRequestFactory extends RequestFactory {
                 request = new StringRequest(url
                         , new OnSuccessListener(context, callBack) {
                     @Override
-                    public void onResponse(String response) {
-                        callBack.onSuccess(transformResponse(response));
+                    public void onSuccess(Context wContext, String response) {
+                        callBack.onSuccess(wContext, response);
                     }
                 }, new OnErrorListener(context, callBack));
                 break;
