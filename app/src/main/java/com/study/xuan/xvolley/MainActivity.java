@@ -1,7 +1,9 @@
 package com.study.xuan.xvolley;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -25,33 +27,39 @@ public class MainActivity extends AppCompatActivity {
         tv_get.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                XVolley.getInstance()
-                        .doGet()
-                        .url("http://www.sojson.com/open/api/weather/json.shtml")
-                        .addParam("city", "北京")
-                        .goGson(weather.class)
-                        .build()
-                        .addInterceptor(new Interceptor() {
-                            @Override
-                            public Request intercept(Chain chain) {
-                                LogUtil.log("intercept","custom");
-                                Request request = chain.request();
-                                String url = request.getUrl();
-                                if (url.contains("sojson")) {
-                                    request.cancel();
-                                    return request;
-                                }
-                                return request;
-                            }
-                        })
-                        .execute(MainActivity.this, new CallBack<weather>() {
-                            @Override
-                            public void onSuccess(Context context, weather response) {
-                                Log.e("Success", response.getCity());
-                            }
-                        });
+
             }
         });
+        XVolley.getInstance()
+                .doGet()
+                .url("http://www.sojson.com/open/api/weather/json.shtml")
+                .addParam("city", "北京")
+                .goGson(weather.class)
+                .build()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Request intercept(Chain chain) {
+                        LogUtil.log("intercept","custom");
+                        Request request = chain.request();
+                        String url = request.getUrl();
+                        if (url.contains("sojson")) {
+                            request.cancel();
+                            return request;
+                        }
+                        return request;
+                    }
+                })
+                .execute(MainActivity.this, new CallBack<weather>() {
+                    @Override
+                    public void onSuccess(Context context, weather response) {
+                        Log.e("Success", response.getCity());
+                    }
+                    @Override
+                    public void onFinish() {
+                        LogUtil.log("finish", "activity has been finished");
+                        super.onFinish();
+                    }
+                });
 
         /*XVolley.getInstance()
                 .doGet()
@@ -108,10 +116,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response, int id) {
                         Log.e("OKSuccess", response);
                     }
-                });*//*
+                });*//**//*
 
 
-        *//*OkHttpUtils
+        *//**//*OkHttpUtils
                 .postString()
                 .url("http://192.168.117.102/string" +
                         "post.php")
@@ -127,7 +135,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response, int id) {
                         Log.e("OKSuccess", response);
                     }
-                });*//*
+                });*/
+        //上传文件
         TextView tvPostFile = (TextView) findViewById(R.id.tv_post_file);
 
         tvPostFile.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 XVolley.getInstance()
                         .doPostFile()
                         .url("http://192.168.117.102/filex.php")
-                        .addParams("name","xuan")
+                        .addParam("name","xuan")
                         .addFile("txt", "bb.txt", Environment.getExternalStorageDirectory() + "/bb" +
                                 ".txt")
                         .addFile("png", "aa.txt", Environment.getExternalStorageDirectory() + "/aa" +
@@ -149,7 +158,16 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
             }
-        });*/
+        });
+        //onFinish回调
+        TextView tv_Finish = (TextView) findViewById(R.id.tv_finish);
+        tv_Finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FinishActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         /*OkHttpUtils.post()//

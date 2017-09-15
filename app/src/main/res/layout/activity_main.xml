@@ -50,4 +50,15 @@
         android:layout_margin="5dp"
         android:textColor="@color/colorAccent"
         />
+    <TextView
+        android:id="@+id/tv_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="onFinish测试"
+        android:textSize="18sp"
+        android:padding="10dp"
+        android:background="#000000"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorAccent"
+        />-->
 </LinearLayout>

@@ -142,7 +142,7 @@ public class PostFileBuilder extends RequestBuilder<PostFileBuilder> implements 
     }
 
     @Override
-    public RequestBuilder params(Map<String, String> params) {
+    public PostFileBuilder params(Map<String, String> params) {
         if (params == null) {
             Exceptions.illegalArgument("the parasm can't be null");
             this.params = new LinkedHashMap<>();
@@ -153,7 +153,7 @@ public class PostFileBuilder extends RequestBuilder<PostFileBuilder> implements 
     }
 
     @Override
-    public RequestBuilder addParam(String key, String val) {
+    public PostFileBuilder addParam(String key, String val) {
         if (this.params == null) {
             params = new LinkedHashMap<>();
         }
@@ -162,7 +162,7 @@ public class PostFileBuilder extends RequestBuilder<PostFileBuilder> implements 
     }
 
     @Override
-    public RequestBuilder addParams(Map<String, String> params) {
+    public PostFileBuilder addParams(Map<String, String> params) {
         if (this.params == null) {
             params = new LinkedHashMap<>();
         }
