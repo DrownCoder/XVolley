@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
+import com.study.xuan.xvolleyutil.base.Config;
 import com.study.xuan.xvolleyutil.build.RequestBuilder;
 import com.study.xuan.xvolleyutil.callback.ICallBack;
 import com.study.xuan.xvolleyutil.callback.OnErrorListener;
@@ -18,8 +19,8 @@ import java.util.Map;
  */
 
 public class GetRequestFactory extends RequestFactory {
-    public GetRequestFactory(String url, Map<String, String> params, int type, Class c) {
-        super(url, params, type, c);
+    public GetRequestFactory(Config config, Map<String, String> params, int type, Class c) {
+        super(config, params, type, c);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class GetRequestFactory extends RequestFactory {
                         , new OnSuccessListener(context, callBack) {
                     @Override
                     public void onSuccess(Context wContext, String response) {
-                        callBack.onSuccess(wContext, response);
+                        callBack.onSuccess(wContext, transformResponse(response));
                     }
                 }, new OnErrorListener(context, callBack));
                 break;

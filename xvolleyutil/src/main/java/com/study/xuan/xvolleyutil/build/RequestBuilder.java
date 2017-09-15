@@ -1,5 +1,6 @@
 package com.study.xuan.xvolleyutil.build;
 
+import com.study.xuan.xvolleyutil.base.Config;
 import com.study.xuan.xvolleyutil.factory.RequestFactory;
 
 import java.util.Map;
@@ -20,15 +21,14 @@ public abstract class RequestBuilder<T extends RequestBuilder> {
     public static final int METHOD_POST_GSON = 5;
     public static final int METHOD_STRING_POST_GSON = 6;
     public static final int METHOD_POST_FILE_GOSN = 7;
-    private int mMethodType;
 
     protected Class mClass = String.class;
     protected  int type;
-    protected String url;
     protected Map<String,String> params;
+    protected Config config;
 
     public T url(String url) {
-        this.url = url;
+        this.config.url = url;
         return (T) this;
     }
     /**
@@ -53,11 +53,17 @@ public abstract class RequestBuilder<T extends RequestBuilder> {
         return (T) this;
     }
 
-    public RequestBuilder() {
+    public RequestBuilder(Config config) {
+        if (config == null) {
+            this.config = new Config();
+        }else {
+            this.config = config;
+        }
         type = requestType();
     }
 
     public abstract RequestFactory build();
 
     protected abstract int requestType();
+
 }

@@ -14,20 +14,22 @@ public class weather {
      * message : Success !
      * status : 200
      * city : 北京
-     * count : 9
-     * data : {"shidu":"75%","pm25":28,"pm10":92,"quality":"良","wendu":"19",
-     * "ganmao":"极少数敏感人群应减少户外活动","yesterday":{"date":"28日星期一","sunrise":"05:37","high":"高温
-     * 28.0℃","low":"低温 17.0℃","sunset":"18:53","aqi":30,"fx":"北风","fl":"3-4级","type":"晴",
-     * "notice":"lovely sunshine，尽情享受阳光的温暖吧"},"forecast":[{"date":"29日星期二","sunrise":"05:38",
-     * "high":"高温 26.0℃","low":"低温 16.0℃","sunset":"18:52","aqi":63,"fx":"南风","fl":"3-4级",
-     * "type":"多云","notice":"绵绵的云朵，形状千变万化"},{"date":"30日星期三","sunrise":"05:39","high":"高温 27.0℃",
-     * "low":"低温 19.0℃","sunset":"18:50","aqi":67,"fx":"西南风","fl":"<3级","type":"多云",
-     * "notice":"今日多云，骑上单车去看看世界吧"},{"date":"31日星期四","sunrise":"05:40","high":"高温 27.0℃","low":"低温
-     * 18.0℃","sunset":"18:49","aqi":72,"fx":"南风","fl":"<3级","type":"阴","notice":"阴天是彩虹的前期之景"},
-     * {"date":"01日星期五","sunrise":"05:41","high":"高温 27.0℃","low":"低温 19.0℃","sunset":"18:47",
-     * "aqi":76,"fx":"西南风","fl":"<3级","type":"多云","notice":"今日多云，骑上单车去看看世界吧"},{"date":"02日星期六",
-     * "sunrise":"05:42","high":"高温 25.0℃","low":"低温 18.0℃","sunset":"18:46","aqi":95,"fx":"西南风",
-     * "fl":"<3级","type":"小雨","notice":"下雨了不要紧，撑伞挡挡就行"}]}
+     * count : 2
+     * data : {"shidu":"73%","pm25":33,"pm10":81,"quality":"良","wendu":"23",
+     * "ganmao":"极少数敏感人群应减少户外活动","yesterday":{"date":"12日星期二","sunrise":"05:51","high":"高温
+     * 29.0℃","low":"低温 19.0℃","sunset":"18:30","aqi":34,"fx":"东南风","fl":"<3级","type":"晴",
+     * "notice":"天气干燥，请适当增加室内湿度"},"forecast":[{"date":"13日星期三","sunrise":"05:52","high":"高温
+     * 29.0℃","low":"低温 20.0℃","sunset":"18:28","aqi":59,"fx":"东北风","fl":"<3级","type":"多云",
+     * "notice":"悠悠的云里有淡淡的诗"},{"date":"14日星期四","sunrise":"05:53","high":"高温 28.0℃","low":"低温
+     * 20.0℃","sunset":"18:26","aqi":85,"fx":"南风","fl":"<3级","type":"阴",
+     * "notice":"阴天没有晴天的明朗，却依然明亮"},{"date":"15日星期五","sunrise":"05:54","high":"高温 28.0℃","low":"低温
+     * 18.0℃","sunset":"18:25","aqi":66,"fx":"西南风","fl":"<3级","type":"多云",
+     * "notice":"今日多云，骑上单车去看看世界吧"},{"date":"16日星期六","sunrise":"05:55","high":"高温 27.0℃","low":"低温
+     * 19.0℃","sunset":"18:23","aqi":66,"fx":"西南风","fl":"<3级","type":"阵雨",
+     * "notice":"愿雨后清新的空气给您带来好心情！"},{"date":"17日星期日","sunrise":"05:56","high":"高温 27.0℃",
+     * "low":"低温 18.0℃","sunset":"18:21","aqi":67,"fx":"西南风","fl":"<3级","type":"多云",
+     * "notice":"悠悠的云里有淡淡的诗"}]}
+     * udate : 20170913
      */
 
     private String message;
@@ -35,6 +37,7 @@ public class weather {
     private String city;
     private int count;
     private DataBean data;
+    private int udate;
 
     public String getMessage() {
         return message;
@@ -76,28 +79,35 @@ public class weather {
         this.data = data;
     }
 
+    public int getUdate() {
+        return udate;
+    }
+
+    public void setUdate(int udate) {
+        this.udate = udate;
+    }
+
     public static class DataBean {
         /**
-         * shidu : 75%
-         * pm25 : 28
-         * pm10 : 92
+         * shidu : 73%
+         * pm25 : 33
+         * pm10 : 81
          * quality : 良
-         * wendu : 19
+         * wendu : 23
          * ganmao : 极少数敏感人群应减少户外活动
-         * yesterday : {"date":"28日星期一","sunrise":"05:37","high":"高温 28.0℃","low":"低温 17.0℃",
-         * "sunset":"18:53","aqi":30,"fx":"北风","fl":"3-4级","type":"晴","notice":"lovely
-         * sunshine，尽情享受阳光的温暖吧"}
-         * forecast : [{"date":"29日星期二","sunrise":"05:38","high":"高温 26.0℃","low":"低温 16.0℃",
-         * "sunset":"18:52","aqi":63,"fx":"南风","fl":"3-4级","type":"多云","notice":"绵绵的云朵，形状千变万化"},
-         * {"date":"30日星期三","sunrise":"05:39","high":"高温 27.0℃","low":"低温 19.0℃",
-         * "sunset":"18:50","aqi":67,"fx":"西南风","fl":"<3级","type":"多云",
-         * "notice":"今日多云，骑上单车去看看世界吧"},{"date":"31日星期四","sunrise":"05:40","high":"高温 27.0℃",
-         * "low":"低温 18.0℃","sunset":"18:49","aqi":72,"fx":"南风","fl":"<3级","type":"阴",
-         * "notice":"阴天是彩虹的前期之景"},{"date":"01日星期五","sunrise":"05:41","high":"高温 27.0℃","low":"低温
-         * 19.0℃","sunset":"18:47","aqi":76,"fx":"西南风","fl":"<3级","type":"多云",
-         * "notice":"今日多云，骑上单车去看看世界吧"},{"date":"02日星期六","sunrise":"05:42","high":"高温 25.0℃",
-         * "low":"低温 18.0℃","sunset":"18:46","aqi":95,"fx":"西南风","fl":"<3级","type":"小雨",
-         * "notice":"下雨了不要紧，撑伞挡挡就行"}]
+         * yesterday : {"date":"12日星期二","sunrise":"05:51","high":"高温 29.0℃","low":"低温 19.0℃",
+         * "sunset":"18:30","aqi":34,"fx":"东南风","fl":"<3级","type":"晴","notice":"天气干燥，请适当增加室内湿度"}
+         * forecast : [{"date":"13日星期三","sunrise":"05:52","high":"高温 29.0℃","low":"低温 20.0℃",
+         * "sunset":"18:28","aqi":59,"fx":"东北风","fl":"<3级","type":"多云","notice":"悠悠的云里有淡淡的诗"},
+         * {"date":"14日星期四","sunrise":"05:53","high":"高温 28.0℃","low":"低温 20.0℃",
+         * "sunset":"18:26","aqi":85,"fx":"南风","fl":"<3级","type":"阴","notice":"阴天没有晴天的明朗，却依然明亮"},
+         * {"date":"15日星期五","sunrise":"05:54","high":"高温 28.0℃","low":"低温 18.0℃",
+         * "sunset":"18:25","aqi":66,"fx":"西南风","fl":"<3级","type":"多云",
+         * "notice":"今日多云，骑上单车去看看世界吧"},{"date":"16日星期六","sunrise":"05:55","high":"高温 27.0℃",
+         * "low":"低温 19.0℃","sunset":"18:23","aqi":66,"fx":"西南风","fl":"<3级","type":"阵雨",
+         * "notice":"愿雨后清新的空气给您带来好心情！"},{"date":"17日星期日","sunrise":"05:56","high":"高温 27.0℃",
+         * "low":"低温 18.0℃","sunset":"18:21","aqi":67,"fx":"西南风","fl":"<3级","type":"多云",
+         * "notice":"悠悠的云里有淡淡的诗"}]
          */
 
         private String shidu;
@@ -175,16 +185,16 @@ public class weather {
 
         public static class YesterdayBean {
             /**
-             * date : 28日星期一
-             * sunrise : 05:37
-             * high : 高温 28.0℃
-             * low : 低温 17.0℃
-             * sunset : 18:53
-             * aqi : 30
-             * fx : 北风
-             * fl : 3-4级
+             * date : 12日星期二
+             * sunrise : 05:51
+             * high : 高温 29.0℃
+             * low : 低温 19.0℃
+             * sunset : 18:30
+             * aqi : 34
+             * fx : 东南风
+             * fl : <3级
              * type : 晴
-             * notice : lovely sunshine，尽情享受阳光的温暖吧
+             * notice : 天气干燥，请适当增加室内湿度
              */
 
             private String date;
@@ -281,16 +291,16 @@ public class weather {
 
         public static class ForecastBean {
             /**
-             * date : 29日星期二
-             * sunrise : 05:38
-             * high : 高温 26.0℃
-             * low : 低温 16.0℃
-             * sunset : 18:52
-             * aqi : 63
-             * fx : 南风
-             * fl : 3-4级
+             * date : 13日星期三
+             * sunrise : 05:52
+             * high : 高温 29.0℃
+             * low : 低温 20.0℃
+             * sunset : 18:28
+             * aqi : 59
+             * fx : 东北风
+             * fl : <3级
              * type : 多云
-             * notice : 绵绵的云朵，形状千变万化
+             * notice : 悠悠的云里有淡淡的诗
              */
 
             private String date;

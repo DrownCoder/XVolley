@@ -1,5 +1,6 @@
 package com.study.xuan.xvolleyutil.build;
 
+import com.study.xuan.xvolleyutil.base.Config;
 import com.study.xuan.xvolleyutil.factory.PostRequestFactory;
 import com.study.xuan.xvolleyutil.factory.RequestFactory;
 
@@ -11,8 +12,8 @@ import com.study.xuan.xvolleyutil.factory.RequestFactory;
 
 public class PostStringBuilder extends RequestBuilder<PostStringBuilder> {
     private String content;
-    public PostStringBuilder() {
-        super();
+    public PostStringBuilder(Config config) {
+        super(config);
     }
 
     public RequestBuilder content(String content) {
@@ -22,7 +23,7 @@ public class PostStringBuilder extends RequestBuilder<PostStringBuilder> {
 
     @Override
     public RequestFactory build() {
-        return new PostRequestFactory(url,params,type,mClass,content);
+        return new PostRequestFactory(config,params,type,mClass,content);
     }
 
     @Override

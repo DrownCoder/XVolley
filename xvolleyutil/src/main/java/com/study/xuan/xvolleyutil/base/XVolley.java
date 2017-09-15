@@ -1,4 +1,4 @@
-package com.study.xuan.xvolleyutil;
+package com.study.xuan.xvolleyutil.base;
 
 import android.content.Context;
 
@@ -20,7 +20,7 @@ import com.study.xuan.xvolleyutil.utils.Exceptions;
 public final class XVolley {
     private static volatile XVolley instance = null;
     private RequestQueue mRequsetQueue;
-    private String mBaseUrl;
+    private Config config;
 
     private XVolley(Context context) {
         if (context == null) {
@@ -44,44 +44,48 @@ public final class XVolley {
         return instance;
     }
 
-    public static XVolley getInstance() {
-        return create(null);
-    }
-
     /**
      * set the base url in request
      */
-    public XVolley baseUrl(String url) {
-        this.mBaseUrl = url;
+    public XVolley init(Config config) {
+        this.config = config;
         return this;
+    }
+
+    /**
+     *
+     */
+
+    public static XVolley getInstance() {
+        return create(null);
     }
 
     /**
      * do get request
      */
     public GetBuilder doGet() {
-        return new GetBuilder();
+        return new GetBuilder(config);
     }
 
     /**
      * do post request
      */
     public PostFormBuilder doPost() {
-        return new PostFormBuilder();
+        return new PostFormBuilder(config);
     }
 
     /**
      * post with string body
      */
     public PostStringBuilder doPostString() {
-        return new PostStringBuilder();
+        return new PostStringBuilder(config);
     }
 
     /**
      * post file
      */
     public PostFileBuilder doPostFile(){
-        return new PostFileBuilder();
+        return new PostFileBuilder(config);
     }
 
     /**

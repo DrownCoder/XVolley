@@ -1,69 +1,97 @@
 package com.study.xuan.xvolley;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.study.xuan.xvolleyutil.XVolley;
+import com.android.volley.Request;
+import com.google.gson.Gson;
+import com.study.xuan.xvolleyutil.base.XVolley;
 import com.study.xuan.xvolleyutil.callback.CallBack;
+import com.study.xuan.xvolleyutil.interceptor.Interceptor;
 import com.study.xuan.xvolleyutil.utils.LogUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import okhttp3.Call;
 
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //get请求
+        TextView tv_get = (TextView) findViewById(R.id.tv_get);
+        tv_get.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                XVolley.getInstance()
+                        .doGet()
+                        .url("http://www.sojson.com/open/api/weather/json.shtml")
+                        .addParam("city", "北京")
+                        .goGson(weather.class)
+                        .build()
+                        .addInterceptor(new Interceptor() {
+                            @Override
+                            public Request intercept(Chain chain) {
+                                LogUtil.log("intercept","custom");
+                                Request request = chain.request();
+                                String url = request.getUrl();
+                                if (url.contains("sojson")) {
+                                    request.cancel();
+                                    return request;
+                                }
+                                return request;
+                            }
+                        })
+                        .execute(MainActivity.this, new CallBack<weather>() {
+                            @Override
+                            public void onSuccess(Context context, weather response) {
+                                Log.e("Success", response.getCity());
+                            }
+                        });
+            }
+        });
+
         /*XVolley.getInstance()
                 .doGet()
-                .url("http://www.sojson.com/open/api/weather/json.shtml")
-                .addParams("city", "北京")
-                .goGson(weather.class)
-                .build()
-                .execute(this, new CallBack<weather>() {
-                    @Override
-                    public void onSuccess(weather response) {
-                        Log.e("Success", response.getCity());
-                    }
-                });*/
-        //post请求带参数
-        /*XVolley.getInstance()
-                .doPost()
-                .url("http://192.168.117.102/post.php")
-                .addParams("user", "xuan")
+                .addParam("name", "xuan")
                 .build()
                 .execute(this, new CallBack<String>() {
                     @Override
-                    public void onSuccess(String response) {
+                    public void onSuccess(Context context, String response) {
                         Log.e("Success", response);
                     }
                 });*/
+
+        //post请求带参数
+        XVolley.getInstance()
+                .doPost()
+                .url("http://192.168.117.102/post.php")
+                .addParam("user", "xuan")
+                .build()
+                .execute(this, new CallBack<String>() {
+                    @Override
+                    public void onSuccess(Context context, String response) {
+                        Log.e("Success", response);
+                    }
+                });
         weather weather = new weather();
         weather.setCity("北京");
         weather.setMessage("这是一条带json的post请求");
 
-
+        //post请求带json
+        XVolley.getInstance()
+                .doPostString()
+                .url("http://192.168.117.102/stringpost.php")
+                .content(new Gson().toJson(weather))
+                .build()
+                .execute(this,new CallBack<String>(){
+                    @Override
+                    public void onSuccess(Context context, String response) {
+                        Log.e("Success", response);
+                    }
+                });
         /*OkHttpUtils
                 .post()
                 .url("http://192.168.117.102/post.php")
@@ -80,21 +108,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response, int id) {
                         Log.e("OKSuccess", response);
                     }
-                });*/
-        //post请求带json
-       /* XVolley.getInstance()
-                .doPostString()
-                .url("http://192.168.117.102/stringpost.php")
-                .content(new Gson().toJson(weather))
-                .build()
-                .execute(this,new CallBack<String>(){
-                    @Override
-                    public void onSuccess(String response) {
-                        Log.e("Success", response);
-                    }
-                });
+                });*//*
 
-        OkHttpUtils
+
+        *//*OkHttpUtils
                 .postString()
                 .url("http://192.168.117.102/string" +
                         "post.php")
@@ -110,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response, int id) {
                         Log.e("OKSuccess", response);
                     }
-                });*/
+                });*//*
         TextView tvPostFile = (TextView) findViewById(R.id.tv_post_file);
 
         tvPostFile.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 XVolley.getInstance()
                         .doPostFile()
                         .url("http://192.168.117.102/filex.php")
+                        .addParams("name","xuan")
                         .addFile("txt", "bb.txt", Environment.getExternalStorageDirectory() + "/bb" +
                                 ".txt")
                         .addFile("png", "aa.txt", Environment.getExternalStorageDirectory() + "/aa" +
@@ -127,11 +145,11 @@ public class MainActivity extends AppCompatActivity {
                         .execute(MainActivity.this, new CallBack<String>() {
                             @Override
                             public void onSuccess(Context context, String response) {
-                                super.onSuccess(context, response);
+                                LogUtil.log("success",response);
                             }
                         });
             }
-        });
+        });*/
 
 
         /*OkHttpUtils.post()//
@@ -150,45 +168,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });*/
 
-    }
-
-    public static File compressImage(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-        int options = 100;
-        while (baos.toByteArray().length / 1024 > 500) {  //循环判断如果压缩后图片是否大于500kb,大于继续压缩
-            baos.reset();//重置baos即清空baos
-            options -= 10;//每次都减少10
-            bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
-            long length = baos.toByteArray().length;
-        }
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-        Date date = new Date(System.currentTimeMillis());
-        String filename = format.format(date);
-        File file = new File(Environment.getExternalStorageDirectory(),filename+".png");
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            try {
-                fos.write(baos.toByteArray());
-                fos.flush();
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        recycleBitmap(bitmap);
-        return file;
-    }
-    public static void recycleBitmap(Bitmap... bitmaps) {
-        if (bitmaps==null) {
-            return;
-        }
-        for (Bitmap bm : bitmaps) {
-            if (null != bm && !bm.isRecycled()) {
-                bm.recycle();
-            }
-        }
     }
 }

@@ -11,5 +11,7 @@ import java.util.Map;
 public interface ContainParams {
     RequestBuilder params(Map<String, String> params);
 
-    RequestBuilder addParams(String key, String val);
+    RequestBuilder addParam(String key, String val);
+
+    RequestBuilder addParams(Map<String, String> params);
 }

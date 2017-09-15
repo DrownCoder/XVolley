@@ -2,9 +2,10 @@ package com.study.xuan.xvolleyutil.build;
 
 import android.net.Uri;
 
+import com.study.xuan.xvolleyutil.base.Config;
 import com.study.xuan.xvolleyutil.factory.GetRequestFactory;
 import com.study.xuan.xvolleyutil.factory.RequestFactory;
-import com.study.xuan.xvolleyutil.utils.LogUtil;
+import com.study.xuan.xvolleyutil.utils.Exceptions;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -17,26 +18,12 @@ import java.util.Set;
  * Description :request by GET method.
  */
 
-public class GetBuilder extends RequestBuilder<GetBuilder> implements ContainParams {
+public class GetBuilder extends RequestBuilder<GetBuilder> implements ContainParams{
 
-    public GetBuilder() {
-        super();
+    public GetBuilder(Config config) {
+        super(config);
     }
 
-    @Override
-    public RequestBuilder params(Map<String, String> params) {
-        this.params = params;
-        return this;
-    }
-
-    @Override
-    public RequestBuilder addParams(String key, String val) {
-        if (this.params == null) {
-            params = new LinkedHashMap<>();
-        }
-        params.put(key, val);
-        return this;
-    }
     /**
      * 追加params到url中
      */
@@ -59,14 +46,42 @@ public class GetBuilder extends RequestBuilder<GetBuilder> implements ContainPar
     @Override
     public RequestFactory build() {
         if (params != null) {
-            url = appendParams(url, params);
+            config.url = appendParams(config.url, params);
         }
-        LogUtil.log("url", url);
-        return new GetRequestFactory(url, params, type, mClass);
+        return new GetRequestFactory(config, params, type, mClass);
     }
 
     @Override
     protected int requestType() {
         return METHOD_GET_STRING;
+    }
+
+    @Override
+    public RequestBuilder params(Map<String, String> params) {
+        if (params == null) {
+            Exceptions.illegalArgument("the parasm can't be null");
+            this.params = new LinkedHashMap<>();
+        }else{
+            this.params = params;
+        }
+        return this;
+    }
+
+    @Override
+    public RequestBuilder addParam(String key, String val) {
+        if (this.params == null) {
+            params = new LinkedHashMap<>();
+        }
+        params.put(key, val);
+        return this;
+    }
+
+    @Override
+    public RequestBuilder addParams(Map<String, String> params) {
+        if (this.params == null) {
+            params = new LinkedHashMap<>();
+        }
+        params.putAll(params);
+        return null;
     }
 }

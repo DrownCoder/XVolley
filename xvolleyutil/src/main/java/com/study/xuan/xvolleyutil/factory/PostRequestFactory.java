@@ -3,6 +3,7 @@ package com.study.xuan.xvolleyutil.factory;
 import android.content.Context;
 
 import com.android.volley.Request;
+import com.study.xuan.xvolleyutil.base.Config;
 import com.study.xuan.xvolleyutil.build.RequestBuilder;
 import com.study.xuan.xvolleyutil.callback.ICallBack;
 import com.study.xuan.xvolleyutil.callback.OnErrorListener;
@@ -24,8 +25,8 @@ public class PostRequestFactory extends RequestFactory {
     private String content;
     private byte[] multipartBody;
     private String mimeType;
-    public PostRequestFactory(String url, Map<String, String> params, int type, Class c) {
-        super(url, params, type, c);
+    public PostRequestFactory(Config config, Map<String, String> params, int type, Class c) {
+        super(config, params, type, c);
     }
 
     /**
@@ -33,9 +34,9 @@ public class PostRequestFactory extends RequestFactory {
      *
      * @param content postStringRequest
      */
-    public PostRequestFactory(String url, Map<String, String> params, int type, Class c, String
+    public PostRequestFactory(Config config, Map<String, String> params, int type, Class c, String
             content) {
-        super(url, params, type, c);
+        super(config, params, type, c);
         this.content = content;
     }
     /**
@@ -43,9 +44,9 @@ public class PostRequestFactory extends RequestFactory {
      *
      * @param multipartBody postStringRequest
      */
-    public PostRequestFactory(String url, Map<String, String> params, int type, Class c, byte[]
-            multipartBody ,String mimeType) {
-        super(url, params, type, c);
+    public PostRequestFactory(Config config, Map<String, String> params, int type, Class c, byte[]
+            multipartBody , String mimeType) {
+        super(config, params, type, c);
         this.multipartBody = multipartBody;
         this.mimeType = mimeType;
     }
