@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.google.gson.Gson;
 import com.study.xuan.xvolleyutil.base.Config;
 import com.study.xuan.xvolleyutil.base.XVolley;
+import com.study.xuan.xvolleyutil.build.RequestBuilder;
 import com.study.xuan.xvolleyutil.callback.ICallBack;
 import com.study.xuan.xvolleyutil.interceptor.Interceptor;
 import com.study.xuan.xvolleyutil.utils.Exceptions;
@@ -25,17 +26,18 @@ import java.util.Map;
 public abstract class RequestFactory{
     private Class mClass;
     protected String url;
-    protected Map<String, String> params;
+    protected Map params;
     protected int type;
+    protected Config config;
+
     private List<Interceptor> interceptors;
     private int index = 0;
-    private Config config;
 
-    public RequestFactory(Config config, Map<String, String> params, int type, Class c) {
-        this.config = config;
-        this.params = params;
-        this.type = type;
-        this.mClass = c;
+    public RequestFactory(RequestBuilder builder) {
+        this.config = builder.getConfig();
+        this.params = builder.getmParams();
+        this.type = builder.getType();
+        this.mClass = builder.getmClass();
     }
 
     public final void execute(Context context, ICallBack callBack) {

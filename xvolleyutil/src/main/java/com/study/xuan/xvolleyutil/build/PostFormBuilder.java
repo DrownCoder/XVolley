@@ -21,7 +21,7 @@ public class PostFormBuilder extends RequestBuilder<PostFormBuilder> implements 
 
     @Override
     public RequestFactory build() {
-        return new PostRequestFactory(config, params, type, mClass);
+        return new PostRequestFactory(this);
     }
 
     @Override
@@ -33,28 +33,28 @@ public class PostFormBuilder extends RequestBuilder<PostFormBuilder> implements 
     public RequestBuilder params(Map<String, String> params) {
         if (params == null) {
             Exceptions.illegalArgument("the parasm can't be null");
-            this.params = new LinkedHashMap<>();
+            this.mParams = new LinkedHashMap<>();
         }else{
-            this.params = params;
+            this.mParams = params;
         }
         return this;
     }
 
     @Override
     public RequestBuilder addParam(String key, String val) {
-        if (this.params == null) {
-            params = new LinkedHashMap<>();
+        if (this.mParams == null) {
+            mParams = new LinkedHashMap<>();
         }
-        params.put(key, val);
+        mParams.put(key, val);
         return this;
     }
 
     @Override
     public RequestBuilder addParams(Map<String, String> params) {
-        if (this.params == null) {
-            params = new LinkedHashMap<>();
+        if (this.mParams == null) {
+            mParams = new LinkedHashMap<>();
         }
-        params.putAll(params);
+        mParams.putAll(params);
         return null;
     }
 }

@@ -22,6 +22,7 @@ public class BaseConfigBuilder {
     private String baseUrl;
     private Map<String, String> baseUrlParams;
     private List<Interceptor> baseIntercepts;
+    private Map<String, String> baseHeader;
 
     public BaseConfigBuilder() {
     }
@@ -39,11 +40,19 @@ public class BaseConfigBuilder {
         return this;
     }
 
-    public BaseConfigBuilder addParams(Map<String, String> baseUrlParams) {
+    public BaseConfigBuilder addParams(Map<String, String> params) {
         if (baseUrlParams == null) {
-            baseUrlParams = new HashMap<>();
+            this.baseUrlParams = new HashMap<>();
         }
-        this.baseUrlParams.putAll(baseUrlParams);
+        this.baseUrlParams.putAll(params);
+        return this;
+    }
+
+    public BaseConfigBuilder addHeaders(Map<String, String> headers) {
+        if (baseHeader == null) {
+            baseHeader = new HashMap<>();
+        }
+        this.baseHeader.putAll(headers);
         return this;
     }
 
@@ -63,18 +72,30 @@ public class BaseConfigBuilder {
         return this;
     }
 
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public List<Interceptor> getBaseIntercepts() {
+        return baseIntercepts;
+    }
+
+    public Map<String, String> getBaseHeader() {
+        return baseHeader;
+    }
+
     public Config build() {
         if (TextUtils.isEmpty(baseUrl)) {
             Exceptions.illegalArgument("the url can'r be null");
         }
         if (baseUrlParams.size() == 0) {
-            return new Config(baseUrl, baseIntercepts);
+            return new Config(this);
         }
         Uri.Builder builder = Uri.parse(baseUrl).buildUpon();
         Set<String> keys = baseUrlParams.keySet();
         for (String key : keys) {
             builder.appendQueryParameter(key, baseUrlParams.get(key));
         }
-        return new Config(baseUrl, baseIntercepts);
+        return new Config(this);
     }
 }

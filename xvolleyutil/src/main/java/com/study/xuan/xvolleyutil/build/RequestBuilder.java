@@ -3,6 +3,7 @@ package com.study.xuan.xvolleyutil.build;
 import com.study.xuan.xvolleyutil.base.Config;
 import com.study.xuan.xvolleyutil.factory.RequestFactory;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,11 +25,19 @@ public abstract class RequestBuilder<T extends RequestBuilder> {
 
     protected Class mClass = String.class;
     protected  int type;
-    protected Map<String,String> params;
+    protected Map<String,String> mParams;
     protected Config config;
 
     public T url(String url) {
         this.config.url = url;
+        return (T) this;
+    }
+
+    public T addHeaders(Map<String, String> header) {
+        if (config.header == null) {
+            config.header = new HashMap<>();
+        }
+        config.header.putAll(header);
         return (T) this;
     }
     /**
@@ -66,4 +75,19 @@ public abstract class RequestBuilder<T extends RequestBuilder> {
 
     protected abstract int requestType();
 
+    public Class getmClass() {
+        return mClass;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public Map<String, String> getmParams() {
+        return mParams;
+    }
+
+    public Config getConfig() {
+        return config;
+    }
 }

@@ -37,7 +37,7 @@ public class PostFileBuilder extends RequestBuilder<PostFileBuilder> implements 
     @Override
     public RequestFactory build() {
         multipartBody = buildPart();
-        return new PostRequestFactory(config, params, type, mClass, multipartBody, mimeType);
+        return new PostRequestFactory(this);
     }
 
     @Override
@@ -64,10 +64,10 @@ public class PostFileBuilder extends RequestBuilder<PostFileBuilder> implements 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
         StringBuffer sb = new StringBuffer();
-        if (mFiles.size() == 0 && params.size() == 0) {
+        if (mFiles.size() == 0 && mParams.size() == 0) {
             return null;
         }
-        for (Map.Entry<String, String> entry : params.entrySet()) {
+        for (Map.Entry<String, String> entry : mParams.entrySet()) {
             /* 第一行 */
             // `"--" + BOUNDARY + "\r\n"`
             sb.append("--" + BOUNDARY + "\r\n");
@@ -145,28 +145,36 @@ public class PostFileBuilder extends RequestBuilder<PostFileBuilder> implements 
     public PostFileBuilder params(Map<String, String> params) {
         if (params == null) {
             Exceptions.illegalArgument("the parasm can't be null");
-            this.params = new LinkedHashMap<>();
+            this.mParams = new LinkedHashMap<>();
         }else{
-            this.params = params;
+            this.mParams = params;
         }
         return this;
     }
 
     @Override
     public PostFileBuilder addParam(String key, String val) {
-        if (this.params == null) {
-            params = new LinkedHashMap<>();
+        if (this.mParams == null) {
+            mParams = new LinkedHashMap<>();
         }
-        params.put(key, val);
+        mParams.put(key, val);
         return this;
     }
 
     @Override
     public PostFileBuilder addParams(Map<String, String> params) {
-        if (this.params == null) {
-            params = new LinkedHashMap<>();
+        if (this.mParams == null) {
+            mParams = new LinkedHashMap<>();
         }
-        params.putAll(params);
+        mParams.putAll(params);
         return null;
+    }
+
+    public byte[] getMultipartBody() {
+        return multipartBody;
+    }
+
+    public String getMimeType() {
+        return mimeType;
     }
 }

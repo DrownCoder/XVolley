@@ -9,6 +9,7 @@ import com.study.xuan.xvolleyutil.build.RequestBuilder;
 import com.study.xuan.xvolleyutil.callback.ICallBack;
 import com.study.xuan.xvolleyutil.callback.OnErrorListener;
 import com.study.xuan.xvolleyutil.callback.OnSuccessListener;
+import com.study.xuan.xvolleyutil.request.XStringRequest;
 
 import java.util.Map;
 
@@ -19,8 +20,8 @@ import java.util.Map;
  */
 
 public class GetRequestFactory extends RequestFactory {
-    public GetRequestFactory(Config config, Map<String, String> params, int type, Class c) {
-        super(config, params, type, c);
+    public GetRequestFactory(RequestBuilder builder) {
+        super(builder);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class GetRequestFactory extends RequestFactory {
         Request request = null;
         switch (type) {
             case RequestBuilder.METHOD_GET_STRING:
-                request = new StringRequest(url
+                request = new XStringRequest(url,config.header
                         , new OnSuccessListener(context, callBack) {
                     @Override
                     public void onSuccess(Context wContext, String response) {
@@ -37,7 +38,7 @@ public class GetRequestFactory extends RequestFactory {
                 }, new OnErrorListener(context, callBack));
                 break;
             case RequestBuilder.METHOD_GET_GSON:
-                request = new StringRequest(url
+                request = new XStringRequest(url,config.header
                         , new OnSuccessListener(context, callBack) {
                     @Override
                     public void onSuccess(Context wContext, String response) {

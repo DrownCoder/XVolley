@@ -45,10 +45,10 @@ public class GetBuilder extends RequestBuilder<GetBuilder> implements ContainPar
     }
     @Override
     public RequestFactory build() {
-        if (params != null) {
-            config.url = appendParams(config.url, params);
+        if (mParams != null) {
+            config.url = appendParams(config.url, mParams);
         }
-        return new GetRequestFactory(config, params, type, mClass);
+        return new GetRequestFactory(this);
     }
 
     @Override
@@ -60,28 +60,28 @@ public class GetBuilder extends RequestBuilder<GetBuilder> implements ContainPar
     public RequestBuilder params(Map<String, String> params) {
         if (params == null) {
             Exceptions.illegalArgument("the parasm can't be null");
-            this.params = new LinkedHashMap<>();
+            this.mParams = new LinkedHashMap<>();
         }else{
-            this.params = params;
+            this.mParams = params;
         }
         return this;
     }
 
     @Override
     public RequestBuilder addParam(String key, String val) {
-        if (this.params == null) {
-            params = new LinkedHashMap<>();
+        if (this.mParams == null) {
+            mParams = new LinkedHashMap<>();
         }
-        params.put(key, val);
+        mParams.put(key, val);
         return this;
     }
 
     @Override
     public RequestBuilder addParams(Map<String, String> params) {
-        if (this.params == null) {
-            params = new LinkedHashMap<>();
+        if (this.mParams == null) {
+            mParams = new LinkedHashMap<>();
         }
-        params.putAll(params);
+        mParams.putAll(params);
         return null;
     }
 }

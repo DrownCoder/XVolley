@@ -3,6 +3,7 @@ package com.study.xuan.xvolleyutil.base;
 import com.study.xuan.xvolleyutil.interceptor.Interceptor;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Author : xuan.
@@ -13,13 +14,14 @@ import java.util.List;
 public class Config {
     public List<Interceptor> baseIntercepts;
     public String url;
+    public Map<String, String> header;
 
-    public Config(String baseUrl, List<Interceptor> baseIntercepts) {
-        this.url = baseUrl;
-        this.baseIntercepts = baseIntercepts;
+    public Config(BaseConfigBuilder baseConfigBuilder) {
+        this.url = baseConfigBuilder.getBaseUrl();
+        this.baseIntercepts = baseConfigBuilder.getBaseIntercepts();
+        this.header = baseConfigBuilder.getBaseHeader();
     }
 
     public Config() {
-
     }
 }

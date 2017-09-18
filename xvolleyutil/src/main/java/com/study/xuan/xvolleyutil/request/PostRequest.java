@@ -3,7 +3,6 @@ package com.study.xuan.xvolleyutil.request;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
 
 import java.util.Map;
 
@@ -13,11 +12,13 @@ import java.util.Map;
  * Description :the post contains params
  */
 
-public class PostRequest extends StringRequest {
+public class PostRequest extends XStringRequest {
     private Map<String,String> mParams;
-    public PostRequest(String url, Map<String,String> params, Response.Listener<String> listener,
+
+    public PostRequest(String url, Map<String, String> header, Map<String, String> params,
+                       Response.Listener<String> listener,
                        Response.ErrorListener errorListener) {
-        super(Method.POST, url, listener, errorListener);
+        super(Method.POST, url, header, listener, errorListener);
         this.mParams = params;
     }
 

@@ -1,13 +1,11 @@
 package com.study.xuan.xvolleyutil.request;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.StringRequest;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 /**
  * Author : xuan.
@@ -15,12 +13,13 @@ import java.io.UnsupportedEncodingException;
  * Description :post json
  */
 
-public class JsonPostRequest extends StringRequest {
+public class JsonPostRequest extends XStringRequest {
     private String requestBody;
 
-    public JsonPostRequest(int method, String url, Response.Listener<String> listener, Response
+    public JsonPostRequest(int method, String url, Map<String, String> header, Response
+            .Listener<String> listener, Response
             .ErrorListener errorListener, String requestBody) {
-        super(method, url, listener, errorListener);
+        super(method, url, header, listener, errorListener);
         this.requestBody = requestBody;
     }
 

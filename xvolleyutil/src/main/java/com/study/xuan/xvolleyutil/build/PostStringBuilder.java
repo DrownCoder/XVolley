@@ -23,11 +23,15 @@ public class PostStringBuilder extends RequestBuilder<PostStringBuilder> {
 
     @Override
     public RequestFactory build() {
-        return new PostRequestFactory(config,params,type,mClass,content);
+        return new PostRequestFactory(this);
     }
 
     @Override
     protected int requestType() {
         return METHOD_STRING_POST;
+    }
+
+    public String getContent() {
+        return content;
     }
 }
