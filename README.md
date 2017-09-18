@@ -190,7 +190,7 @@ public interface Interceptor {
 Map<String, String> header = new HashMap<>();
 header.put("user-token", "AEUHY98QIASUDH");
 BaseConfigBuilder config = new BaseConfigBuilder();
-        config.baseUrl("http://192.168.117.102/get.php")
+        config.baseUrl("http://127.0.0.1/get.php")
       .addParam("client", "Android")
       .addParam("position", "北京")
       .addHeaders(header)
