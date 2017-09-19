@@ -51,7 +51,7 @@ dependencies {
  XVolley.create(getApplicationContext());
 ```
 
-#### 2.全局配置Header,URL,Intercepter.(可选)
+#### 2.在Application中全局配置Header,URL,Intercepter.(可选)
 通过调用init(Config config)方法，Config通过BaseConfigBuilder构建。
 
 ```
