@@ -41,7 +41,7 @@ Step 2. Add the dependency
 
 ```
 dependencies {
-	        compile 'com.github.sdfdzx:XVolley:v1.0.0'
+	        compile 'com.github.sdfdzx:XVolley:v1.0.1'
 	}
 ```
 ### Usage
@@ -291,4 +291,9 @@ public abstract class WeakListener{
     }
 	}
 ```
+### Changelog
 
+**v1.0.1**
+
+* 完善builder模式的链式调用   
+* 修复部分bug
