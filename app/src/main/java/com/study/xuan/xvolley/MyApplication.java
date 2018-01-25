@@ -8,13 +8,10 @@ import com.study.xuan.xvolleyutil.base.XVolley;
 import com.study.xuan.xvolleyutil.base.BaseConfigBuilder;
 import com.study.xuan.xvolleyutil.interceptor.Interceptor;
 import com.study.xuan.xvolleyutil.utils.LogUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
 
 
 /**
@@ -44,15 +41,5 @@ public class MyApplication extends Application {
                 });*/
         XVolley.create(getApplicationContext());
                 //.init(config.build());
-
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//                .addInterceptor(new LoggerInterceptor("TAG"))
-                .connectTimeout(10000L, TimeUnit.MILLISECONDS)
-                .readTimeout(10000L, TimeUnit.MILLISECONDS)
-                //其他配置
-                .build();
-
-        OkHttpUtils.initClient(okHttpClient);
-
     }
 }

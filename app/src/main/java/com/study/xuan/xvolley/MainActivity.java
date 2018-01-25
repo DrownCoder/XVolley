@@ -150,42 +150,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("Success", response);
                     }
                 });
-        /*OkHttpUtils
-                .post()
-                .url("http://192.168.117.102/post.php")
-                .addParams("user", "hyman")
-                .addParams("password", "123")
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        Log.e("OKSuccess", response);
-                    }
-                });*//**//*
-
-
-        *//**//*OkHttpUtils
-                .postString()
-                .url("http://192.168.117.102/string" +
-                        "post.php")
-                .content(new Gson().toJson(weather))
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        Log.e("OKSuccess", response);
-                    }
-                });*/
         //上传文件
         TextView tvPostFile = (TextView) findViewById(R.id.tv_post_file);
 
@@ -218,23 +182,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-        /*OkHttpUtils.post()//
-                .addFile("pic", "pic", compressImage(bmp))
-                .url("http://192.168.117.102/filepost.php")
-                .build()//
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        Log.e("OKSuccess", response);
-                    }
-                });*/
 
     }
     static Set<String> parsePathParameters(String path) {

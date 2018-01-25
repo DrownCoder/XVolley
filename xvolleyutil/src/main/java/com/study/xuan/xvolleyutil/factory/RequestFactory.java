@@ -23,7 +23,7 @@ import java.util.Map;
  * Description :base factory
  */
 
-public abstract class RequestFactory{
+public abstract class RequestFactory {
     private Class mClass;
     protected String url;
     protected Map params;
@@ -43,7 +43,7 @@ public abstract class RequestFactory{
     public final void execute(Context context, ICallBack callBack) {
         if (TextUtils.isEmpty(config.url)) {
             Exceptions.illegalArgument("the url can't be null");
-        }else {
+        } else {
             url = config.url;
         }
         if (config.baseIntercepts != null && config.baseIntercepts.size() > 0) {
@@ -52,7 +52,7 @@ public abstract class RequestFactory{
             }
             interceptors.addAll(config.baseIntercepts);
         }
-        Request request = createRequest(context,callBack,type);
+        Request request = createRequest(context, callBack, type);
         doRequestWithIntercept(request, callBack);
     }
 
@@ -61,7 +61,7 @@ public abstract class RequestFactory{
      */
     private void doRequestWithIntercept(Request request, ICallBack callBack) {
         callBack.onBefore();
-        if (interceptors.size() > 0) {
+        if (interceptors != null && interceptors.size() > 0) {
             Interceptor.Chain chain = new ApplicationInterceptorChain(index + 1, request);
             XVolley.getInstance().add(interceptors.get(index).intercept(chain));
         } else {
@@ -88,7 +88,7 @@ public abstract class RequestFactory{
 
         @Override
         public Request request() {
-            if (index < interceptors.size()) {
+            if (interceptors != null && index < interceptors.size()) {
                 Interceptor.Chain chain = new ApplicationInterceptorChain(index + 1, request);
                 Interceptor interceptor = interceptors.get(index);
                 return interceptor.intercept(chain);
@@ -98,10 +98,11 @@ public abstract class RequestFactory{
     }
 
 
-    abstract Request createRequest(Context context, ICallBack callBack,int type);
+    abstract Request createRequest(Context context, ICallBack callBack, int type);
 
     /**
      * transform the respone by GSON
+     *
      * @param response the String respone
      */
     protected final Object transformResponse(String response) {
