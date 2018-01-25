@@ -27,7 +27,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Map<String, String> header = new HashMap<>();
+        /*Map<String, String> header = new HashMap<>();
         header.put("user-token", "AEUHY98QIASUDH");
         BaseConfigBuilder config = new BaseConfigBuilder();
         config.baseUrl("http://192.168.117.102/get.php")
@@ -41,9 +41,9 @@ public class MyApplication extends Application {
                         LogUtil.log("intercept","baseIntercept:"+request.getUrl());
                         return request;
                     }
-                });
-        XVolley.create(getApplicationContext())
-                .init(config.build());
+                });*/
+        XVolley.create(getApplicationContext());
+                //.init(config.build());
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
 //                .addInterceptor(new LoggerInterceptor("TAG"))

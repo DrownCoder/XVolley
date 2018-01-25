@@ -57,7 +57,7 @@ public class GetBuilder extends RequestBuilder<GetBuilder> implements ContainPar
     }
 
     @Override
-    public RequestBuilder params(Map<String, String> params) {
+    public GetBuilder params(Map<String, String> params) {
         if (params == null) {
             Exceptions.illegalArgument("the parasm can't be null");
             this.mParams = new LinkedHashMap<>();
@@ -68,7 +68,7 @@ public class GetBuilder extends RequestBuilder<GetBuilder> implements ContainPar
     }
 
     @Override
-    public RequestBuilder addParam(String key, String val) {
+    public GetBuilder addParam(String key, String val) {
         if (this.mParams == null) {
             mParams = new LinkedHashMap<>();
         }
@@ -77,7 +77,7 @@ public class GetBuilder extends RequestBuilder<GetBuilder> implements ContainPar
     }
 
     @Override
-    public RequestBuilder addParams(Map<String, String> params) {
+    public GetBuilder addParams(Map<String, String> params) {
         if (this.mParams == null) {
             mParams = new LinkedHashMap<>();
         }

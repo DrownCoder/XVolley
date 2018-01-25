@@ -30,7 +30,7 @@ public class PostFormBuilder extends RequestBuilder<PostFormBuilder> implements 
     }
 
     @Override
-    public RequestBuilder params(Map<String, String> params) {
+    public PostFormBuilder params(Map<String, String> params) {
         if (params == null) {
             Exceptions.illegalArgument("the parasm can't be null");
             this.mParams = new LinkedHashMap<>();
@@ -41,7 +41,7 @@ public class PostFormBuilder extends RequestBuilder<PostFormBuilder> implements 
     }
 
     @Override
-    public RequestBuilder addParam(String key, String val) {
+    public PostFormBuilder addParam(String key, String val) {
         if (this.mParams == null) {
             mParams = new LinkedHashMap<>();
         }
@@ -50,7 +50,7 @@ public class PostFormBuilder extends RequestBuilder<PostFormBuilder> implements 
     }
 
     @Override
-    public RequestBuilder addParams(Map<String, String> params) {
+    public PostFormBuilder addParams(Map<String, String> params) {
         if (this.mParams == null) {
             mParams = new LinkedHashMap<>();
         }
